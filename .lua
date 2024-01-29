@@ -1,6 +1,6 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VAPE-UI-MODDED/main/.lua"))()
 local wndw = lib:Window("VIP Turtle Hub V4 - TESTING GAME SCRIPT")
-local T1 = wndw:Tab("testing tab")
+local T1 = wndw:Tab("Main")
 
 local vis = {
   a = 0,
@@ -22,19 +22,6 @@ end)
 T1:Toggle("Auto kill V2",false,function(value)
     _G.killv2 = value
 end)
-
-local args = {
-    [1] = {
-        ["castPercent"] = 0,
-        ["damage"] = 30,
-        ["isSetNetworkOwnerEnemy"] = false,
-        ["hitID"] = 1,
-        ["skillID"] = 15030001
-    },
-    [2] = "1785"
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer(unpack(args))
 
 lib:HookFunction(function(method,self,args)
     if self == "HitEvent" and method == "FireServer" then
