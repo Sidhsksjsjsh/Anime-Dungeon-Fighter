@@ -1,5 +1,5 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VAPE-UI-MODDED/main/.lua"))()
-local wndw = lib:Window("VIP Turtle Hub V4 - TESTING GAME SCRIPT")
+local wndw = lib:Window("VIP Turtle Hub V4 - REQUEST ANY FEATURE")
 local T1 = wndw:Tab("Main")
 
 local vis = {
@@ -11,7 +11,7 @@ local vis = {
   f = ""
 }
 
-T1:Toggle("Auto kill V1",false,function(value)
+T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
     _G.killv1 = value
     while wait() do
       if _G.killv1 == false then break end
@@ -19,7 +19,7 @@ T1:Toggle("Auto kill V1",false,function(value)
     end
 end)
 
-T1:Toggle("Auto kill V2",false,function(value)
+T1:Toggle("Auto kill V2 [ Not Working ]",false,function(value)
     _G.killv2 = value
 end)
 
