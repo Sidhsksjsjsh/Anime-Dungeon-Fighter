@@ -20,6 +20,13 @@ T2:Button("Infinite Coins",function()
     game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(7000003,-math.huge)
 end)
 
+T2:Button("Claim all Battle Pass reward",function()
+    for array = 1,50 do
+      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\228\184\128\228\184\170\229\173\163\231\165\168\229\165\150\229\138\177",{["id"] = array,["isPay"] = false})
+      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\228\184\128\228\184\170\229\173\163\231\165\168\229\165\150\229\138\177",{["id"] = array,["isPay"] = true})
+    end
+end)
+
 T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
     _G.killv1 = value
     while wait() do
@@ -49,6 +56,22 @@ T3:Toggle("Auto draw weapon [ Draw before enabling this ]",false,function(value)
     while wait() do
       if _G.dw == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(draw.a,1)
+    end
+end)
+
+T3:Toggle("Auto draw hero",false,function(value)
+    _G.dh = value
+    while wait() do
+      if _G.dh == false then break end
+      game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(1,1)
+    end
+end)
+
+T3:Toggle("Auto draw cosmetics [ Cos Point ]",false,function(value)
+    _G.dc = value
+    while wait() do
+      if _G.dc == false then break end
+      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\231\154\174\232\130\164\229\184\129\230\138\189\231\154\174\232\130\164")
     end
 end)
 
