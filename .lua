@@ -1,5 +1,5 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VAPE-UI-MODDED/main/.lua"))()
-local wndw = lib:Window("VIP Turtle Hub V4 - Today is my birthday :)")
+local wndw = lib:Window("VIP Turtle Hub V4 - I love my GF 😍😘🥰❤️")
 local T1 = wndw:Tab("Main")
 local T2 = wndw:Tab("Server Manipulator")
 local T3 = wndw:Tab("Draw")
@@ -35,6 +35,10 @@ T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
     end
 end)
 
+T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
+    _G.maxh = value
+end)
+
 T3:Toggle("Auto draw fruit [ X1 ]",false,function(value)
     _G.df = value
     while wait() do
@@ -51,7 +55,7 @@ T3:Toggle("Auto draw fruit [ X10 ]",false,function(value)
     end
 end)
 
-T3:Toggle("Auto draw weapon [ Draw before enabling this ]",false,function(value)
+T3:Toggle("Draw weapon [ Draw before enabling this ]",false,function(value)
     _G.dw = value
     while wait() do
       if _G.dw == false then break end
@@ -67,7 +71,7 @@ T3:Toggle("Auto draw hero",false,function(value)
     end
 end)
 
-T3:Toggle("Auto draw cosmetics [ Cos Point ]",false,function(value)
+T3:Toggle("Auto draw cosmetics [ Cos Coin ]",false,function(value)
     _G.dc = value
     while wait() do
       if _G.dc == false then break end
@@ -89,8 +93,11 @@ lib:HookFunction(function(method,self,args)
 end)
 
 lib:HookCalled(function(self,args)
-     if self.Name == "HitEvent" and _G.killv2 == true then
-        args[1]["damage"] = 9e9
+     if self.Name == "HitEvent" then
+        args[1]["damage"] = math.huge
         return self.FireServer(self,unpack(args))
+    elseif self.Name == "RemoteFunction" and args[1] == "\229\150\130\229\133\187\229\174\160\231\137\169" and _G.maxh == true then
+        args[2]["FeedItemVt"]["1002"] = math.huge
+        return self.InvokeServer(self,unpack(args))
     end
 end)
