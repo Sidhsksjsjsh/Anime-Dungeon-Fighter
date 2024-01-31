@@ -138,6 +138,10 @@ T2:Button("Infinite Coins",function()
     game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(7000003,-math.huge)
 end)
 
+T2:Button("Infinite Gems - TEST",function()
+    game:GetService("ReplicatedStorage")["Msg"]["DrawFruit"]:InvokeServer(-math.huge)
+end)
+
 T2:Button("Claim all Battle Pass reward",function()
     for array = 1,50 do
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\228\184\128\228\184\170\229\173\163\231\165\168\229\165\150\229\138\177",{["id"] = array,["isPay"] = false})
@@ -173,19 +177,51 @@ T3:Toggle("Auto draw fruit [ X10 ]",false,function(value)
     end
 end)
 
-T3:Toggle("Draw weapon [ Draw before enabling this ]",false,function(value)
-    _G.dw = value
+T3:Toggle("Draw weapon [ Draw before enabling this ] [ X1 ]",false,function(value)
+    _G.dw1 = value
     while wait() do
-      if _G.dw == false then break end
+      if _G.dw1 == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(draw.a,1)
     end
 end)
 
-T3:Toggle("Auto draw hero",false,function(value)
-    _G.dh = value
+T3:Toggle("Draw weapon [ Draw before enabling this ] [ X3 ]",false,function(value)
+    _G.dw2 = value
     while wait() do
-      if _G.dh == false then break end
+      if _G.dw2 == false then break end
+      game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(draw.a,3)
+    end
+end)
+
+T3:Toggle("Draw hero [ X1 ] [ World 1 ]",false,function(value)
+    _G.dh1 = value
+    while wait() do
+      if _G.dh1 == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(1,1)
+    end
+end)
+
+T3:Toggle("Draw hero [ X10 ] [ World 1 ]",false,function(value)
+    _G.dh2 = value
+    while wait() do
+      if _G.dh2 == false then break end
+      game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(1,10)
+    end
+end)
+
+T3:Toggle("Draw hero [ X1 ] [ World 2 ]",false,function(value)
+    _G.dh3 = value
+    while wait() do
+      if _G.dh3 == false then break end
+      game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(2,1)
+    end
+end)
+
+T3:Toggle("Draw hero [ X10 ] [ World 2 ]",false,function(value)
+    _G.dh4 = value
+    while wait() do
+      if _G.dh4 == false then break end
+      game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(2,10)
     end
 end)
 
