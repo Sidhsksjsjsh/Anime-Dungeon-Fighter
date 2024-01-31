@@ -4,6 +4,9 @@ local T1 = wndw:Tab("Main")
 local T2 = wndw:Tab("Server Manipulator")
 local T3 = wndw:Tab("Draw")
 local T4 = wndw:Tab("Join arena")
+local T5 = wndw:Tab("XRAY - TEST")
+local workspace = game:GetService("Workspace")
+local serverplayer = game:GetService("Players")
 
 local vis = {
   a = 0,
@@ -17,21 +20,118 @@ local draw = {
   a = 7000000
 }
 
+local espHD = false
+
+local function setESP(trgt)
+  if trgt:FindFirstChild("XRAY") then
+    trgt["XRAY"]:Destroy()
+  end
+
+if espHD == true then
+      local esp = Instance.new("Highlight")
+      esp.Name = "XRAY"
+      esp.FillColor = Color3.new(0,1,0)
+      esp.OutlineColor = Color3.new(1,1,1)
+      esp.FillTransparency = 0
+      esp.OutlineTransparency = 0
+      esp.Adornee = trgt
+      esp.Parent = trgt
+      esp.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+  end
+end
+
+--game:GetService("Workspace")["副本地图"]["5"]["地图"]["Enemy"]["2_1"]["44018"]["UpperTorso"]
+local function FindTarget()
+  for _,tbl1 in pairs(workspace:GetChildren()) do
+    if tbl1:FindFirstChild("副本地图") then
+      for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
+        if v.Name == "UpperTorso" then
+          setESP(v["UpperTorso"])
+        end
+      end
+    end
+  end
+end
+
+local function getPlayerESP()
+  for i,v in pairs(serverplayer:GetPlayers()) do
+    setESP(v["Character"])
+  end
+end
+
+local function gfg(str)
+  return str:gsub("Easy","1"):gsub("Normal","2"):gsub("Hard","3"):gsub("Hell","4")
+end
+
+local function nbf(gs)
+  return tonumber(gfg(gs))
+end
+
 T4:Dropdown("Select arena",{"1_1","1_2","1_3","2_1","2_2","2_3"},function(value)
     _G.forlvl = value
 end)
 
 T4:Dropdown("Select mode",{"Easy","Normal","Hard","Hell"},function(value)
-    _G.mode = value:gsub("Easy","1"):gsub("Normal","2"):gsub("Hard","3"):gsub("Hell","4") or 1
+    _G.mode = value or 1
 end)
 
 T4:Button("Join ring/arena",function()
-      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",tonumber(_G.mode))
+      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",nbf(_G.mode))
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",_G.forlvl)
 end)
 
 T4:Button("Exit ring/arena",function()
     game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\128\128\229\135\186\231\187\132\233\152\159\230\136\191\233\151\180",_G.forlvl)
+end)
+
+T4:Toggle("Auto select mode [ choose mode first ]",false,function(value)
+    _G.jarne = value
+end)
+
+T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ ENEMY ]",Color3.new(1,1,1),function(value)
+    for i,v in pairs(workspace:GetDescendants()) do
+      if v:FindFirstChild("XRAY") then
+        v["XRAY"]["OutlineColor"] = value
+      end
+    end
+end)
+
+T5:Colorpicker("V-XRAY Color [ BOBY COLOR ] [ ENEMY ]",Color3.new(0,1,0),function(value)
+    for i,v in pairs(workspace:GetDescendants()) do
+      if v:FindFirstChild("XRAY") then
+        v["XRAY"]["FillColor"] = value
+      end
+    end
+end)
+
+T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ PLAYER ]",Color3.new(1,1,1),function(value)
+    for i,v in pairs(serverplayer:GetPlayers()) do
+      if v["Character"]:FindFirstChild("XRAY") then
+        v["Character"]["XRAY"]["OutlineColor"] = value
+      end
+    end
+end)
+
+T5:Colorpicker("V-XRAY Color [ BOBY COLOR ] [ PLAYER ]",Color3.new(0,1,0),function(value)
+    for i,v in pairs(serverplayer:GetPlayers()) do
+      if v["Character"]:FindFirstChild("XRAY") then
+        v["Character"]["XRAY"]["FillColor"] = value
+      end
+    end
+end)
+
+T5:Toggle("Enable V-XRAY",false,function(value)
+    espHD = value
+    FindTarget()
+    getPlayerESP()
+end)
+
+T5:Button("Visual XRAY [ ENEMY ]",function()
+    FindTarget()
+end)
+
+T5:Button("Visual XRAY [ PLAYER ]",function()
+    getPlayerESP()
 end)
 
 T2:Button("Infinite Coins",function()
@@ -117,8 +217,8 @@ lib:HookCalled(function(self,args)
     elseif self.Name == "RemoteFunction" and args[1] == "\229\150\130\229\133\187\229\174\160\231\137\169" and _G.maxh == true then
         args[2]["FeedItemVt"]["1002"] = math.huge
         return self.InvokeServer(self,unpack(args))
-    --elseif self.Name == "RemoteFunction" and args[1] == "\230\138\149\231\165\168\233\154\190\229\186\166" then
-    --    game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",tonumber(_G.mode))
-    --    return self.InvokeServer(self,unpack(args))
+    elseif self.Name == "RemoteFunction" and args[1] == "\230\138\149\231\165\168\233\154\190\229\186\166" and _G.jarne == true then
+        args[2] = nbf(_G.mode)
+        return self.InvokeServer(self,unpack(args))
     end
 end)
