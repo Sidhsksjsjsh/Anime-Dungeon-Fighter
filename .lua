@@ -3,6 +3,7 @@ local wndw = lib:Window("VIP Turtle Hub V4 - I love my GF 😍😘🥰❤️")
 local T1 = wndw:Tab("Main")
 local T2 = wndw:Tab("Server Manipulator")
 local T3 = wndw:Tab("Draw")
+local T4 = wndw:Tab("Join arena")
 
 local vis = {
   a = 0,
@@ -15,6 +16,26 @@ local vis = {
 local draw = {
   a = 7000000
 }
+
+T4:Dropdown("Select arena",{"1_1","1_2","1_3","2_1","2_2","2_3"},function(value)
+    _G.forlvl = value
+end)
+
+T4:Dropdown("Select mode",{"Easy","Normal","Hard","Hell"},function(value)
+    _G.mode = value
+end)
+
+T4:Button("Join ring/arena",function()
+    if _G.mode == "Easy" then
+      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
+      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",_G.forlvl)
+      
+    end
+end)
+
+T4:Button("Exit ring/arena",function()
+    game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\128\128\229\135\186\231\187\132\233\152\159\230\136\191\233\151\180",_G.forlvl)
+end)
 
 T2:Button("Infinite Coins",function()
     game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(7000003,-math.huge)
