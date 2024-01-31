@@ -1,5 +1,5 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VAPE-UI-MODDED/main/.lua"))()
-local wndw = lib:Window("VIP Turtle Hub V4 - I love my GF 😍😘🥰❤️")
+local wndw = lib:Window("VIP Turtle Hub V4 - powered by Turtle Team & Turtle Secure")
 local T1 = wndw:Tab("Main")
 local T2 = wndw:Tab("Server Manipulator")
 local T3 = wndw:Tab("Draw")
@@ -22,15 +22,12 @@ T4:Dropdown("Select arena",{"1_1","1_2","1_3","2_1","2_2","2_3"},function(value)
 end)
 
 T4:Dropdown("Select mode",{"Easy","Normal","Hard","Hell"},function(value)
-    _G.mode = value
+    _G.mode = value:gsub("Easy","1"):gsub("Normal","2"):gsub("Hard","3"):gsub("Hell","4") or 1
 end)
 
 T4:Button("Join ring/arena",function()
-    if _G.mode == "Easy" then
-      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
+      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",tonumber(_G.mode))
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",_G.forlvl)
-      
-    end
 end)
 
 T4:Button("Exit ring/arena",function()
@@ -119,6 +116,9 @@ lib:HookCalled(function(self,args)
         return self.FireServer(self,unpack(args))
     elseif self.Name == "RemoteFunction" and args[1] == "\229\150\130\229\133\187\229\174\160\231\137\169" and _G.maxh == true then
         args[2]["FeedItemVt"]["1002"] = math.huge
+        return self.InvokeServer(self,unpack(args))
+    elseif self.Name == "RemoteFunction" and args[1] == "\230\138\149\231\165\168\233\154\190\229\186\166" then
+        game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",tonumber(_G.mode))
         return self.InvokeServer(self,unpack(args))
     end
 end)
