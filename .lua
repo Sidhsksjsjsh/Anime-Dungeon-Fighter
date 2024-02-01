@@ -72,7 +72,7 @@ T4:Dropdown("Select arena",{"1_1","1_2","1_3","2_1","2_2","2_3"},function(value)
 end)
 
 T4:Dropdown("Select mode",{"Easy","Normal","Hard","Hell"},function(value)
-    _G.mode = value or 1
+    _G.mode = value
 end)
 
 T4:Button("Join ring/arena",function()
@@ -249,6 +249,8 @@ end)
 lib:HookCalled(function(self,args)
      if self.Name == "HitEvent" then
         args[1]["damage"] = math.huge
+        args[1]["phsic"]["Power"] = math.huge
+        args[1]["phsic"]["Time"] = 0
         return self.FireServer(self,unpack(args))
     elseif self.Name == "RemoteFunction" and args[1] == "\229\150\130\229\133\187\229\174\160\231\137\169" and _G.maxh == true then
         args[2]["FeedItemVt"]["1002"] = math.huge
