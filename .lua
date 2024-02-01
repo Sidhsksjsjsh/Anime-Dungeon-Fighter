@@ -249,8 +249,8 @@ end)
 lib:HookCalled(function(self,args)
      if self.Name == "HitEvent" then
         args[1]["damage"] = math.huge
-        args[1]["phsic"]["Power"] = math.huge
-        args[1]["phsic"]["Time"] = 0
+        --args[1]["phsic"]["Power"] = math.huge
+        --args[1]["phsic"]["Time"] = 0
         return self.FireServer(self,unpack(args))
     elseif self.Name == "RemoteFunction" and args[1] == "\229\150\130\229\133\187\229\174\160\231\137\169" and _G.maxh == true then
         args[2]["FeedItemVt"]["1002"] = math.huge
