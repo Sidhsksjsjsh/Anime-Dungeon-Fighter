@@ -161,7 +161,7 @@ T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
 end)
 
-T1:Toggle("Dont enable this feature",false,function(value)
+T1:Toggle("Dont enable this feature - TEST",false,function(value)
     _G.tfurteaw = value
 end)
 
@@ -249,17 +249,6 @@ lib:HookFunction(function(method,self,args)
       draw.a = args[1]
     end
 end)
-
-local args = {
-    [1] = "\230\139\190\229\143\150\231\137\169\229\147\129",
-    [2] = {
-        [1] = 1,
-        [2] = 1,
-        [3] = "36211883078399"
-    }
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
 
 lib:HookCalled(function(self,args)
      if self.Name == "HitEvent" then
