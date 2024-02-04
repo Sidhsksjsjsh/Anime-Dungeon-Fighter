@@ -161,6 +161,10 @@ T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
 end)
 
+T1:Toggle("Dont enable this feature",false,function(value)
+    _G.tfurteaw = value
+end)
+
 T3:Toggle("Auto draw fruit [ X1 ]",false,function(value)
     _G.df = value
     while wait() do
@@ -269,13 +273,13 @@ lib:HookCalled(function(self,args)
     elseif self.Name == "RemoteFunction" and args[1] == "\230\138\149\231\165\168\233\154\190\229\186\166" and _G.jarne == true then
         args[2] = nbf(_G.mode)
         return self.InvokeServer(self,unpack(args))
-    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][1] == 1 then
+    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][1] == 1 and _G.tfurteaw == true then
          args[2][2] = math.huge
          return self.InvokeServer(self,unpack(args))
-    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][2] == 1 then
+    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][2] == 1 and _G.tfurteaw == true then
          args[2][1] = math.huge
          return self.InvokeServer(self,unpack(args))
-    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][1] == 1 and args[2][2] == 1 then
+    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][1] == 1 and args[2][2] == 1 and _G.tfurteaw == true then
          args[2][1] = math.huge
          args[2][2] = math.huge
          return self.InvokeServer(self,unpack(args))
