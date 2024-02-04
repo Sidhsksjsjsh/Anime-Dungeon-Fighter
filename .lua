@@ -246,6 +246,17 @@ lib:HookFunction(function(method,self,args)
     end
 end)
 
+local args = {
+    [1] = "\230\139\190\229\143\150\231\137\169\229\147\129",
+    [2] = {
+        [1] = 1,
+        [2] = 1,
+        [3] = "36211883078399"
+    }
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
+
 lib:HookCalled(function(self,args)
      if self.Name == "HitEvent" then
         args[1]["damage"] = math.huge
@@ -258,5 +269,15 @@ lib:HookCalled(function(self,args)
     elseif self.Name == "RemoteFunction" and args[1] == "\230\138\149\231\165\168\233\154\190\229\186\166" and _G.jarne == true then
         args[2] = nbf(_G.mode)
         return self.InvokeServer(self,unpack(args))
+    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][1] == 1 then
+         args[2][2] = math.huge
+         return self.InvokeServer(self,unpack(args))
+    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][2] == 1 then
+         args[2][1] = math.huge
+         return self.InvokeServer(self,unpack(args))
+    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][1] == 1 and args[2][2] == 1 then
+         args[2][1] = math.huge
+         args[2][2] = math.huge
+         return self.InvokeServer(self,unpack(args))
     end
 end)
