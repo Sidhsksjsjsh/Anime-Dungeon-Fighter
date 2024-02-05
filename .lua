@@ -173,6 +173,14 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
+T1:Toggle("For developer [ 1 ] [ Test ]",false,function(value)
+    _G.FD1 = value
+end)
+
+T1:Toggle("For developer [ 2 ] [ Test ]",false,function(value)
+    _G.FD2 = value
+end)
+
 T3:Toggle("Auto draw fruit [ X1 ]",false,function(value)
     _G.df = value
     while wait() do
@@ -343,11 +351,11 @@ lib:HookCalled(function(self,args)
     elseif self.Name == "RemoteFunction" and args[1] == "\230\138\149\231\165\168\233\154\190\229\186\166" and _G.jarne == true then
         args[2] = nbf(_G.mode)
         return self.InvokeServer(self,unpack(args))
-    elseif self.Name == "RemoteEvent" and args[1] == "\229\144\140\230\173\165\231\142\169\229\174\182\233\188\160\230\160\135\228\189\141\231\189\174" then
+    elseif self.Name == "RemoteEvent" and args[1] == "\229\144\140\230\173\165\231\142\169\229\174\182\233\188\160\230\160\135\228\189\141\231\189\174" and _G.FD1 == true then
         args[2][1] = user["Character"]["HumanoidRootPart"]["Position"]
         args[2][2] = user["Character"]["HumanoidRootPart"]["Position"]
         return self.FireServer(self,unpack(args))
-    elseif self.Name == "Performance" then
+    elseif self.Name == "Performance" and _G.FD2 == true then
         args[1]["isNPC"] = true
         args[1]["arg"]["castTime"] = 9e9
         args[1]["arg"]["castMinTime"] = 9e9
