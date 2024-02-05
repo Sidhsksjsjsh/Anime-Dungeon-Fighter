@@ -90,6 +90,25 @@ local function nbf(gs)
   return tonumber(gfg(gs))
 end
 
+local function getNearestNPC(character,npcsFolder) -- Your character and the folder containing all the NPCs
+    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    local rootPosition = rootPart.CFrame.Position
+    
+    local bestNPC
+    local maxDistance = 50 -- Change it to the maximum distance you want an NPC to be
+    for _,model in next,npcsFolder:GetDescendants() do
+        if model:IsA("Model") then
+            local distance = (model.HumanoidRootPart.CFrame.Position - rootPosition).Magnitude
+            if distance < maxDistance then
+                maxDistance = distance
+                bestNPC = model
+            end
+        end
+    end
+    
+    return bestNPC,maxDistance
+end
+
 T4:Dropdown("Select arena",{"1_1","1_2","1_3","2_1","2_2","2_3"},function(value)
     _G.forlvl = value
 end)
@@ -216,6 +235,17 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib
 end)
 end
 
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V3 [ Nearest ] [ " .. lib:ColorFonts("Hit","Red") .. " first ] [ 50 ]",false,function(value)
+    _G.killv3 = value
+    while wait() do
+      if _G.killv3 == false then break end
+	local closestNPC,closestDistance = getNearestNPC(user["Character"],workspace["副本地图"])
+		if closestNPC then
+			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},closestNPC.Name)
+		end
+    end
+end)
+
 T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
 end)
@@ -223,7 +253,9 @@ end)
 T1:Toggle("Auto collect loot drops",false,function(value)
     _G.tfurteaw = value
     for i,v in pairs(workspace["DropFolder"]:GetChildren()) do
-      Bring(v)
+	if v.Name ~= "掉落模板" then
+		Bring(v)
+	end
     end
 end)
 
@@ -432,12 +464,16 @@ lib:WarnUser("dm me on discord if u found any " .. lib:ColorFonts("bugs","Red") 
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
     if _G.tfurteaw == true then
-      Bring(loot)
+	if v.Name ~= "掉落模板" then
+		Bring(loot)
+	end
     end
 end)
 user["Character"]["HumanoidRootPart"]:GetPropertyChangedSignal("CFrame"):Connect(function()
 	for i,v in pairs(workspace["DropFolder"]:GetChildren()) do
-		Bring(v)
+		if v.Name ~= "掉落模板" then
+			Bring(v)
+		end
 	end
 end)
 end
