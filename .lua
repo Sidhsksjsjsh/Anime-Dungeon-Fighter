@@ -55,7 +55,7 @@ local function FindTarget()
 end
 
 local function Bring(part)
-	TweenService:Create(part,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = user.Character.HumanoidRootPart.Position}):Play()
+	TweenService:Create(part,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = user.Character.HumanoidRootPart.CFrame}):Play()
 end
 
 local function getPlayerESP()
@@ -367,8 +367,10 @@ lib:HookCalled(function(self,args)
     end
 end)
 
+if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
     if _G.tfurteaw == true then
       Bring(loot)
     end
 end)
+end
