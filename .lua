@@ -11,6 +11,8 @@ local workspace = game:GetService("Workspace")
 local serverplayer = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local user = serverplayer.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+
 local vis = {
   a = 0,
   b = 30,
@@ -188,6 +190,19 @@ T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
     end
 end)
 
+if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+T1:Toggle("Auto kill V2 [ Raycast ] [ Hit first ]",false,function(value)
+    _G.killv2 = value
+    while wait(0.5) do
+      if _G.killv2 == false then break end
+	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
+		if v:IsA("Model") and v.Name ~= "Model" then
+			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
+		end
+	end
+    end
+end)
+else
 T1:Toggle("Auto kill V2 [ Raycast ] [ Hit first ]",false,function(value)
     _G.killv2 = value
     while wait() do
@@ -199,6 +214,7 @@ T1:Toggle("Auto kill V2 [ Raycast ] [ Hit first ]",false,function(value)
 	end
     end
 end)
+end
 
 T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
