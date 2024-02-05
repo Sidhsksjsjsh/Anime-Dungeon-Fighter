@@ -11,12 +11,13 @@ local TweenService = game:GetService("TweenService")
 local user = serverplayer.LocalPlayer
 local vis = {
   a = 0,
-  b = 0,
+  b = 30,
   c = false,
-  d = 0,
-  e = 0,
+  d = 1,
+  e = 15030001,
   f = ""
 }
+
 local draw = {
   a = 7000000
 }
@@ -164,11 +165,36 @@ T2:Button("Get all fruits",function()
     lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n(14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
+local args = {
+    [1] = {
+        ["castPercent"] = 0,
+        ["damage"] = 30,
+        ["isSetNetworkOwnerEnemy"] = false,
+        ["hitID"] = 1,
+        ["skillID"] = 15030001
+    },
+    [2] = "1785"
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer(unpack(args))
+
 T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
     _G.killv1 = value
     while wait() do
       if _G.killv1 == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},vis.f)
+    end
+end)
+
+T1:Toggle("Auto kill V2 [ Raycast ] [ Hit first ]",false,function(value)
+    _G.killv2 = value
+    while wait() do
+      if _G.killv2 == false then break end
+	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
+		if v:IsA("Model") and v.Name ~= "Model" then
+			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
+		end
+	end
     end
 end)
 
