@@ -144,7 +144,9 @@ T2:Button("Infinite Coins",function()
 end)
 
 T2:Button("Infinite Gems - TEST",function()
-    game:GetService("ReplicatedStorage")["Msg"]["DrawFruit"]:InvokeServer(-math.huge)
+    --game:GetService("ReplicatedStorage")["Msg"]["DrawFruit"]:InvokeServer(-math.huge)
+    game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(-math.huge,1)
+    game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(math.huge,1)
 end)
 
 T2:Button("Claim all Battle Pass reward",function()
@@ -173,6 +175,7 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
+if user.Name == "Rivanda_Cheater" then
 T1:Toggle("Staff test feature [1] [ Akbar ]",false,function(value)
     _G.FD1 = value
 end)
@@ -180,6 +183,7 @@ end)
 T1:Toggle("Staff test feature [2] [ Akbar ]",false,function(value)
     _G.FD2 = value
 end)
+end
 
 T3:Toggle("Auto draw fruit [ X1 ]",false,function(value)
     _G.df = value
