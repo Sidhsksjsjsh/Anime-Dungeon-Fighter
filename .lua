@@ -373,4 +373,9 @@ workspace["DropFolder"].ChildAdded:Connect(function(loot)
       Bring(loot)
     end
 end)
+user["Character"]["HumanoidRootPart"]:GetPropertyChangedSignal("CFrame"):Connect(function()
+	for i,v in pairs(workspace["DropFolder"]:GetChildren()) do
+		Bring(v)
+	end
+end)
 end
