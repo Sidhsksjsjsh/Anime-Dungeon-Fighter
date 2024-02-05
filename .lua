@@ -375,7 +375,7 @@ lib:HookCalled(function(self,args)
     end
 end)
 
-lib:WarnUser("Message from Turtle Team Staff\nsorry for everything\nour team is fixing problematic features first\nWe will add all your feature requests once the problematic feature is working properly.")
+lib:WarnUser("Message from Turtle Staff\nsorry for everything\nour team is fixing problematic features first\nWe will add all your feature requests once the problematic feature is working properly.")
 
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
