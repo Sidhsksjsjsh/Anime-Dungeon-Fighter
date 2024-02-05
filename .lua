@@ -173,11 +173,11 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
-T1:Toggle("For developer [ 1 ] [ Test ]",false,function(value)
+T1:Toggle("Staff test feature [1] [ Akbar ]",false,function(value)
     _G.FD1 = value
 end)
 
-T1:Toggle("For developer [ 2 ] [ Test ]",false,function(value)
+T1:Toggle("Staff test feature [2] [ Akbar ]",false,function(value)
     _G.FD2 = value
 end)
 
