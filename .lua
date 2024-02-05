@@ -7,7 +7,8 @@ local T4 = wndw:Tab("Join arena")
 local T5 = wndw:Tab("XRAY - TEST")
 local workspace = game:GetService("Workspace")
 local serverplayer = game:GetService("Players")
-
+local TweenService = game:GetService("TweenService")
+local user = serverplayer.LocalPlayer
 local vis = {
   a = 0,
   b = 0,
@@ -51,6 +52,10 @@ local function FindTarget()
       end
     end
   end
+end
+
+local function Bring(part)
+	TweenService:Create(part,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = user.Character.HumanoidRootPart.Position}):Play()
 end
 
 local function getPlayerESP()
@@ -161,8 +166,11 @@ T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
 end)
 
-T1:Toggle("Dont enable this feature - TEST",false,function(value)
+T1:Toggle("Auto collect loot drops",false,function(value)
     _G.tfurteaw = value
+    for i,v in pairs(workspace["DropFolder"]:GetChildren()) do
+      Bring(v)
+    end
 end)
 
 T3:Toggle("Auto draw fruit [ X1 ]",false,function(value)
@@ -250,6 +258,79 @@ lib:HookFunction(function(method,self,args)
     end
 end)
 
+--[[local args = {
+    [1] = "\229\144\140\230\173\165\231\142\169\229\174\182\233\188\160\230\160\135\228\189\141\231\189\174",
+    [2] = {
+        [1] = CFrame.new(30.441062927246094, 23.52494239807129, 260.5985107421875, 0.6233587861061096, -0.17701369524002075, 0.7616364359855652, 4.41700898079489e-10, 0.9740394353866577, 0.22637875378131866, -0.78193598985672, -0.1411151885986328, 0.6071760058403015),
+        [2] = CFrame.new(63.006187438964844, 33.20424270629883, 286.5592956542969, 0.9873019456863403, -0.06899712979793549, 0.14308865368366241, 4.804313391559845e-09, 0.900749146938324, 0.43433982133865356, -0.15885517001152039, -0.4288245439529419, 0.8893113136291504)
+    }
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["RemoteEvent"]:FireServer(unpack(args))
+
+local args = {
+    [1] = {
+        ["eventId"] = 1,
+        ["modelName"] = "KeyEvent",
+        ["isNPC"] = false,
+        ["skillName"] = "\231\136\177\228\185\139\232\131\189\229\138\155-\231\136\177\230\132\143\229\176\129\233\148\129",
+        ["arg"] = {
+            ["humanoid"] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            ["Caster"] = workspace["Rivanda_Cheater"],
+            ["castTime"] = 0,
+            ["humanoidRootPart"] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            ["character"] = workspace["Rivanda_Cheater"],
+            ["hitBox"] = {
+                [1] = getNil("HitBox", "Part"),
+                [2] = getNil("HitBox", "Part"),
+                [3] = getNil("HitBox", "Part"),
+                [4] = getNil("HitBox", "Part"),
+                [5] = getNil("HitBox", "Part"),
+                [6] = getNil("HitBox", "Part"),
+                [7] = getNil("HitBox", "Part"),
+                [8] = getNil("HitBox", "Part"),
+                [9] = getNil("HitBox", "Part"),
+                [10] = getNil("HitBox", "Part"),
+                [11] = getNil("HitBox", "Part"),
+                [12] = getNil("HitBox", "Part")
+            },
+            ["player"] = game:GetService("Players").LocalPlayer,
+            ["handle"] = game:GetService("Players").LocalPlayer.Character.RightHand,
+            ["Releaser"] = game:GetService("Players").LocalPlayer,
+            ["animator"] = game:GetService("Players").LocalPlayer.Character.Humanoid.Animator,
+            ["AtkedEnemy"] = {
+                [1] = "27283",
+                [2] = "27284",
+                [3] = "27285",
+                [4] = "27301",
+                [5] = "27302"
+            },
+            ["castMinTime"] = 0,
+            ["animationPlayer"] = {
+                ["PlayNPCName"] = function PlayNPCName() end -- Function Called: PlayNPCName,
+                ["StopName"] = function StopName() end -- Function Called: StopName,
+                ["Stop"] = function Stop() end -- Function Called: Stop,
+                ["Play"] = function Play() end -- Function Called: Play
+            }
+        },
+        ["nowIndex"] = 3,
+        ["skillId"] = "15070303"
+    }
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["Performance"]:FireServer(unpack(args))
+
+local args = {
+    [1] = "\229\144\140\230\173\165\231\142\169\229\174\182\233\188\160\230\160\135\228\189\141\231\189\174",
+    [2] = {
+        [1] = CFrame.new(30.441062927246094, 23.52494239807129, 260.5985107421875, 0.6233587861061096, -0.17701369524002075, 0.7616364359855652, 4.41700898079489e-10, 0.9740394353866577, 0.22637875378131866, -0.78193598985672, -0.1411151885986328, 0.6071760058403015),
+        [2] = CFrame.new(63.006187438964844, 33.20424270629883, 286.5592956542969, 0.9873019456863403, -0.06899712979793549, 0.14308865368366241, 4.804313391559845e-09, 0.900749146938324, 0.43433982133865356, -0.15885517001152039, -0.4288245439529419, 0.8893113136291504)
+    }
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["RemoteEvent"]:FireServer(unpack(args))
+]]
+
 lib:HookCalled(function(self,args)
      if self.Name == "HitEvent" then
         args[1]["damage"] = math.huge
@@ -262,15 +343,20 @@ lib:HookCalled(function(self,args)
     elseif self.Name == "RemoteFunction" and args[1] == "\230\138\149\231\165\168\233\154\190\229\186\166" and _G.jarne == true then
         args[2] = nbf(_G.mode)
         return self.InvokeServer(self,unpack(args))
-    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][1] == 1 and _G.tfurteaw == true then
-         args[2][2] = math.huge
-         return self.InvokeServer(self,unpack(args))
-    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][2] == 1 and _G.tfurteaw == true then
-         args[2][1] = math.huge
-         return self.InvokeServer(self,unpack(args))
-    elseif self.Name == "RemoteFunction" and args[1] == "\230\139\190\229\143\150\231\137\169\229\147\129" and args[2][1] == 1 and args[2][2] == 1 and _G.tfurteaw == true then
-         args[2][1] = math.huge
-         args[2][2] = math.huge
-         return self.InvokeServer(self,unpack(args))
+    elseif self.Name == "RemoteEvent" and args[1] == "\229\144\140\230\173\165\231\142\169\229\174\182\233\188\160\230\160\135\228\189\141\231\189\174" then
+        args[2][1] = user["Character"]["HumanoidRootPart"]["Position"]
+        args[2][2] = user["Character"]["HumanoidRootPart"]["Position"]
+        return self.FireServer(self,unpack(args))
+    elseif self.Name == "Performance" then
+        args[1]["isNPC"] = true
+        args[1]["arg"]["castTime"] = 9e9
+        args[1]["arg"]["castMinTime"] = 9e9
+        return self.FireServer(self,unpack(args))
+    end
+end)
+
+workspace["DropFolder"].ChildAdded:Connect(function(loot)
+    if _G.tfurteaw == true then
+      Bring(loot)
     end
 end)
