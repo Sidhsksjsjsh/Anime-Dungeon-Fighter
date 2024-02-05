@@ -191,9 +191,9 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts(
 end)
 
 if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ] [ Delay 1s ]",false,function(value)
     _G.killv2 = value
-    while wait(0.5) do
+    while wait(1) do
       if _G.killv2 == false then break end
 	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
 		if v:IsA("Model") and v.Name ~= "Model" then
