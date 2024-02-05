@@ -92,7 +92,7 @@ end
 
 local function getNearestNPC(character,npcsFolder) -- Your character and the folder containing all the NPCs
     local rootPart = character:FindFirstChild("HumanoidRootPart")
-    local rootPosition = rootPart.CFrame.Position
+    local rootPosition = rootPart.CFrame
     
     local bestNPC
     local maxDistance = 50 -- Change it to the maximum distance you want an NPC to be
@@ -100,13 +100,13 @@ local function getNearestNPC(character,npcsFolder) -- Your character and the fol
         if model:IsA("Model") then
             local distance = (model.HumanoidRootPart.CFrame.Position - rootPosition).Magnitude
             if distance < maxDistance then
-                maxDistance = distance
-                bestNPC = model
+                --maxDistance = distance
+                bestNPC = model.Name
             end
         end
     end
     
-    return bestNPC,maxDistance
+    return bestNPC
 end
 
 T4:Dropdown("Select arena",{"1_1","1_2","1_3","2_1","2_2","2_3"},function(value)
@@ -239,9 +239,9 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V3 [ Nearest ] [ " .. lib
     _G.killv3 = value
     while wait() do
       if _G.killv3 == false then break end
-	local closestNPC,closestDistance = getNearestNPC(user["Character"],workspace["副本地图"])
+	local closestNPC = getNearestNPC(user["Character"],workspace["副本地图"])
 		if closestNPC then
-			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},closestNPC.Name)
+			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},closestNPC)
 		end
     end
 end)
