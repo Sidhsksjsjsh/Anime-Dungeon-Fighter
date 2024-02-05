@@ -157,11 +157,11 @@ T2:Button("Claim all Battle Pass reward",function()
 end)
 
 T2:Button("Bypass cooldown",function()
-    lib:WarnUser(':12783: attempt to index nil with "CDscriptfruit"')
+    lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n(14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
 T2:Button("Get all fruits",function()
-    lib:WarnUser(':5129: attempt to index nil with "gBits32"')
+    lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n(14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
 T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
