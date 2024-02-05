@@ -158,7 +158,7 @@ T5:Button("Visual XRAY [ " .. lib:ColorFonts("PLAYER","Green") .. " ]",function(
 end)
 
 T2:Button("Infinite Coins",function()
-    game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(7000003,-math.huge)
+    game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(7000003,math.huge)
 end)
 
 T2:Button("Infinite Gems - TEST",function()
