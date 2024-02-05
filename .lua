@@ -427,7 +427,7 @@ lib:HookCalled(function(self,args)
     end
 end)
 
---lib:WarnUser("Message from Turtle Staff\nsorry for everything\nour team is fixing problematic features first\nWe will add all your feature requests once the problematic feature is working properly.")
+lib:WarnUser("dm me on discord if u found any " .. lib:ColorFonts("bugs","Red") .. ".\nmy discord: fahriii._")
 
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
