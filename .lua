@@ -148,12 +148,12 @@ T5:Toggle("Enable V-XRAY",false,function(value)
     FindTarget()
     getPlayerESP()
 end)
-
-T5:Button("Visual XRAY [ ENEMY ]",function()
+--lib:ColorFonts(str,color)
+T5:Button("Visual XRAY [ " .. lib:ColorFonts("ENEMY","Red") .. " ]",function()
     FindTarget()
 end)
 
-T5:Button("Visual XRAY [ PLAYER ]",function()
+T5:Button("Visual XRAY [ " .. lib:ColorFonts("PLAYER","Green") .. " ]",function()
     getPlayerESP()
 end)
 
@@ -174,7 +174,7 @@ T2:Button("Claim all Battle Pass reward",function()
     end
 end)
 
-T2:Button("Bypass cooldown",function()
+T2:Button(lib:ColorFonts("Bypass","Red") .. " cooldown",function()
     lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n(14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
@@ -182,7 +182,7 @@ T2:Button("Get all fruits",function()
     lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n(14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
-T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",false,function(value)
     _G.killv1 = value
     while wait() do
       if _G.killv1 == false then break end
@@ -191,7 +191,7 @@ T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
 end)
 
 if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
-T1:Toggle("Auto kill V2 [ Raycast ] [ Hit first ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ]",false,function(value)
     _G.killv2 = value
     while wait(0.5) do
       if _G.killv2 == false then break end
@@ -203,7 +203,7 @@ T1:Toggle("Auto kill V2 [ Raycast ] [ Hit first ]",false,function(value)
     end
 end)
 else
-T1:Toggle("Auto kill V2 [ Raycast ] [ Hit first ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ]",false,function(value)
     _G.killv2 = value
     while wait() do
       if _G.killv2 == false then break end
