@@ -156,6 +156,14 @@ T2:Button("Claim all Battle Pass reward",function()
     end
 end)
 
+T2:Button("Bypass cooldown",function()
+    lib:WarnUser(':12783: attempt to index nil with "CDscriptfruit"')
+end)
+
+T2:Button("Get all fruits",function()
+    lib:WarnUser(':5129: attempt to index nil with "gBits32"')
+end)
+
 T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
     _G.killv1 = value
     while wait() do
