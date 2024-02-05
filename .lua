@@ -5,6 +5,8 @@ local T2 = wndw:Tab("Server Manipulator")
 local T3 = wndw:Tab("Draw")
 local T4 = wndw:Tab("Join arena")
 local T5 = wndw:Tab("XRAY - TEST")
+local T6 = wndw:Tab("Codes list")
+
 local workspace = game:GetService("Workspace")
 local serverplayer = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -20,6 +22,19 @@ local vis = {
 
 local draw = {
   a = 7000000
+}
+
+local codes = {
+	list = {
+		"NEWGAME",
+		"NEWGAME2",
+		"WEEKENDGIFT1",
+		"WEEKENDGIFT2",
+		"FREEGIFT",
+		"GOLDGIFT",
+		"GEMGIFT",
+		"BOOSTGIFT"
+	}
 }
 
 local espHD = false
@@ -165,19 +180,6 @@ T2:Button("Get all fruits",function()
     lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n(14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
-local args = {
-    [1] = {
-        ["castPercent"] = 0,
-        ["damage"] = 30,
-        ["isSetNetworkOwnerEnemy"] = false,
-        ["hitID"] = 1,
-        ["skillID"] = 15030001
-    },
-    [2] = "1785"
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer(unpack(args))
-
 T1:Toggle("Auto kill V1 [ Hit the enemy first ]",false,function(value)
     _G.killv1 = value
     while wait() do
@@ -291,6 +293,14 @@ T3:Toggle("Auto draw cosmetics [ Cos Coin ]",false,function(value)
     end
 end)
 
+task.spawn(function()
+for array = 1,#codes.list do
+	T6:Button(codes.list[array] .. " ( click to copy )",function()
+		setclipboard(codes.list[array])
+	end)
+end
+end)
+
 lib:HookFunction(function(method,self,args)
     if self == "HitEvent" and method == "FireServer" then
       vis.a = args[1]["castPercent"]
@@ -401,7 +411,7 @@ lib:HookCalled(function(self,args)
     end
 end)
 
-lib:WarnUser("Message from Turtle Staff\nsorry for everything\nour team is fixing problematic features first\nWe will add all your feature requests once the problematic feature is working properly.")
+--lib:WarnUser("Message from Turtle Staff\nsorry for everything\nour team is fixing problematic features first\nWe will add all your feature requests once the problematic feature is working properly.")
 
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
