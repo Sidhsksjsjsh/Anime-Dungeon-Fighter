@@ -139,7 +139,7 @@ T4:Toggle("Auto join defense mode ( World 1 & 2 )",false,function(value)
 	end
 end)
 
-T4:Toggle("Auto tp above the crystal V1",false,function(value)
+T4:Toggle("Auto tp above the crystal",false,function(value)
 	_G.tpac = value
 	while wait() do
 		if _G.tpac == false then break end
@@ -151,7 +151,7 @@ T4:Toggle("Auto tp above the crystal V1",false,function(value)
 	end
 end)
 
-T4:Toggle("Auto tp above the crystal V2",false,function(value)
+--[[T4:Toggle("Auto tp above the crystal V2",false,function(value)
 	_G.dvtst = value
 	while wait() do
 		if _G.dvtst == false then break end
@@ -162,6 +162,7 @@ T4:Toggle("Auto tp above the crystal V2",false,function(value)
 			end
 	end
 end)
+]]
 
 T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ ENEMY ]",Color3.new(1,1,1),function(value)
     for i,v in pairs(workspace:GetDescendants()) do
@@ -234,11 +235,9 @@ T2:Button("Get all fruits",function()
     lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n( 14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
-if user.Name == "Rivanda_Cheater" then
 T2:Button("Claim daily XP boost",function()
     game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\229\143\140\229\128\141\231\187\143\233\170\140")
 end)
-end
 
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",false,function(value)
     _G.killv1 = value
