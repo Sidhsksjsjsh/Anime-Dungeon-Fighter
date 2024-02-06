@@ -459,7 +459,10 @@ lib:HookCalled(function(self,args)
     end
 end)
 
-lib:WarnUser("dm me on discord if u found any " .. lib:ColorFonts("bugs","Red") .. ".\nmy discord: fahriii._")
+lib:WarnUser("dm me on discord if u found any " .. lib:ColorFonts("bugs","Red") .. ".\nmy discord: fahriii._\nDiscord : https://discord.com/invite/FHrVDCUv (Copied)")
+if user.Name ~= "Rivanda_Cheater" then
+	setclipboard("https://discord.com/invite/FHrVDCUv")
+end
 
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
