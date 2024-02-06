@@ -3,7 +3,7 @@ local wndw = lib:Window("VIP Turtle Hub V4 - powered by Turtle Team & Turtle Sec
 local T1 = wndw:Tab("Main")
 local T2 = wndw:Tab("Server Manipulator")
 local T3 = wndw:Tab("Draw")
-local T4 = wndw:Tab("Join arena")
+local T4 = wndw:Tab("Defense mode")
 local T5 = wndw:Tab("XRAY - TEST")
 local T6 = wndw:Tab("Codes list")
 
@@ -82,14 +82,6 @@ local function getPlayerESP()
   end
 end
 
-local function gfg(str)
-  return str:gsub("Easy","1"):gsub("Normal","2"):gsub("Hard","3"):gsub("Hell","4")
-end
-
-local function nbf(gs)
-  return tonumber(gfg(gs))
-end
-
 local function getNearestNPC(character,npcsFolder) -- Your character and the folder containing all the NPCs
     local rootPart = character:FindFirstChild("HumanoidRootPart")
     local rootPosition = rootPart.CFrame
@@ -109,25 +101,45 @@ local function getNearestNPC(character,npcsFolder) -- Your character and the fol
     return bestNPC
 end
 
-T4:Dropdown("Select arena",{"1_1","1_2","1_3","2_1","2_2","2_3"},function(value)
-    _G.forlvl = value
+local function filterString(str)
+	return str:gsub("Wave 1","1"):gsub("Wave 50","2"):gsub("Wave 100","3")
+end
+
+T4:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100"},function(value)
+    _G.wave = value
 end)
 
-T4:Dropdown("Select mode",{"Easy","Normal","Hard","Hell"},function(value)
-    _G.mode = value
+T4:Toggle("Auto join defense mode ( World 1 & 2 )",false,function(value)
+	_G.JDM = value
+	while wait() do
+		if _G.JDM == false then break end
+			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
+			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",tonumber(filterString(_G.wave)))
+	end
 end)
 
-T4:Button("Join ring/arena",function()
-      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",nbf(_G.mode))
-      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",_G.forlvl)
+T4:Toggle("Auto tp above the crystal",false,function(value)
+	_G.tpac = value
+	while wait() do
+		if _G.tpac == false then break end
+			for i,v in pairs(game:GetService("Workspace")["副本地图"]:GetDescendants()) do
+				if v.Name == "碰撞" then
+					user["Character"]["HumanoidRootPart"]["Position"] = v.Position
+				end
+			end
+	end
 end)
 
-T4:Button("Exit ring/arena",function()
-    game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\128\128\229\135\186\231\187\132\233\152\159\230\136\191\233\151\180",_G.forlvl)
-end)
-
-T4:Toggle("Auto select mode [ choose mode first ]",false,function(value)
-    _G.jarne = value
+T4:Toggle("Dev_test_f_#3762",false,function(value)
+	_G.dvtst = value
+	while wait() do
+		if _G.dvtst == false then break end
+			for i,v in pairs(game:GetService("Workspace")["副本地图"]:GetDescendants()) do
+				if v.Name == "HumanoidRootPart" and v.Parent == "守护物" then
+					user["Character"]["HumanoidRootPart"]["Position"] = v.Position
+				end
+			end
+	end
 end)
 
 T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ ENEMY ]",Color3.new(1,1,1),function(value)
