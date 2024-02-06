@@ -82,6 +82,10 @@ local function getPlayerESP()
   end
 end
 
+local function tpabove(prt)
+        user["Character"]:SetPrimaryPartCFrame(CFrame.new(prt.Position + Vector3.new(0,npcPart.Size.Y/2 + playerPart.Size.Y/2 + 2,0)))
+end
+
 local function getNearestNPC(character,npcsFolder) -- Your character and the folder containing all the NPCs
     local rootPart = character:FindFirstChild("HumanoidRootPart")
     local rootPosition = rootPart.CFrame
@@ -124,7 +128,7 @@ T4:Toggle("Auto tp above the crystal",false,function(value)
 		if _G.tpac == false then break end
 			for i,v in pairs(game:GetService("Workspace")["副本地图"]:GetDescendants()) do
 				if v.Name == "碰撞" then
-					user["Character"]["HumanoidRootPart"]["Position"] = v.Position
+					tpabove(v)
 				end
 			end
 	end
@@ -136,7 +140,7 @@ T4:Toggle("Dev_test_f_#3762",false,function(value)
 		if _G.dvtst == false then break end
 			for i,v in pairs(game:GetService("Workspace")["副本地图"]:GetDescendants()) do
 				if v.Name == "HumanoidRootPart" and v.Parent == "守护物" then
-					user["Character"]["HumanoidRootPart"]["Position"] = v.Position
+					tpabove(v)
 				end
 			end
 	end
