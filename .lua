@@ -109,20 +109,37 @@ local function filterString(str)
 	return str:gsub("Wave 1","1"):gsub("Wave 50","2"):gsub("Wave 100","3"):gsub("Wave 150","4"):gsub("Wave 200","5")
 end
 
+local wave = "Wave 1"
 T4:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100","Wave 150","Wave 200"},function(value)
-    _G.wave = value
+    wave = value
 end)
 
 T4:Toggle("Auto join defense mode ( World 1 & 2 )",false,function(value)
 	_G.JDM = value
 	while wait() do
 		if _G.JDM == false then break end
-			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
-			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",tonumber(filterString(_G.wave)))
+			if wave == "Wave 1" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
+			elseif wave == "Wave 50" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
+			elseif wave == "Wave 100" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
+			elseif wave == "Wave 150" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",4)
+			elseif wave == "Wave 200" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",5)
+			else
+				lib:WarnUser("Invalid wave!")
+			end
 	end
 end)
 
-T4:Toggle("Auto tp above the crystal",false,function(value)
+T4:Toggle("Auto tp above the crystal V1",false,function(value)
 	_G.tpac = value
 	while wait() do
 		if _G.tpac == false then break end
@@ -134,8 +151,7 @@ T4:Toggle("Auto tp above the crystal",false,function(value)
 	end
 end)
 
---[[
-T4:Toggle("Dev_test_f_#3762",false,function(value)
+T4:Toggle("Auto tp above the crystal V2",false,function(value)
 	_G.dvtst = value
 	while wait() do
 		if _G.dvtst == false then break end
@@ -146,7 +162,6 @@ T4:Toggle("Dev_test_f_#3762",false,function(value)
 			end
 	end
 end)
-]]
 
 T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ ENEMY ]",Color3.new(1,1,1),function(value)
     for i,v in pairs(workspace:GetDescendants()) do
