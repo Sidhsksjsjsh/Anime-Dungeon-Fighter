@@ -83,7 +83,7 @@ local function getPlayerESP()
 end
 
 local function tpabove(prt)
-        user["Character"]:SetPrimaryPartCFrame(CFrame.new(prt.Position + Vector3.new(0,npcPart.Size.Y/2 + playerPart.Size.Y/2 + 2,0)))
+        user["Character"]:SetPrimaryPartCFrame(CFrame.new(prt.Position + Vector3.new(0,prt.Size.Y/2 + user["Character"]["HumanoidRootPart"].Size.Y/2 + 2,0)))
 end
 
 local function getNearestNPC(character,npcsFolder) -- Your character and the folder containing all the NPCs
@@ -106,10 +106,10 @@ local function getNearestNPC(character,npcsFolder) -- Your character and the fol
 end
 
 local function filterString(str)
-	return str:gsub("Wave 1","1"):gsub("Wave 50","2"):gsub("Wave 100","3")
+	return str:gsub("Wave 1","1"):gsub("Wave 50","2"):gsub("Wave 100","3"):gsub("Wave 150","4"):gsub("Wave 200","5")
 end
 
-T4:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100"},function(value)
+T4:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100","Wave 150","Wave 200"},function(value)
     _G.wave = value
 end)
 
@@ -134,6 +134,7 @@ T4:Toggle("Auto tp above the crystal",false,function(value)
 	end
 end)
 
+--[[
 T4:Toggle("Dev_test_f_#3762",false,function(value)
 	_G.dvtst = value
 	while wait() do
@@ -145,6 +146,7 @@ T4:Toggle("Dev_test_f_#3762",false,function(value)
 			end
 	end
 end)
+]]
 
 T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ ENEMY ]",Color3.new(1,1,1),function(value)
     for i,v in pairs(workspace:GetDescendants()) do
@@ -231,7 +233,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts(
     end
 end)
 
-if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+--[[if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ] [ Delay 1s ]",false,function(value)
     _G.killv2 = value
     while wait(1) do
@@ -243,7 +245,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib
 	end
     end
 end)
-else
+else]]
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ]",false,function(value)
     _G.killv2 = value
     while wait() do
@@ -255,7 +257,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib
 	end
     end
 end)
-end
+--end
 
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V3 [ Nearest ] [ " .. lib:ColorFonts("Hit","Red") .. " first ] [ 50 ]",false,function(value)
     _G.killv3 = value
