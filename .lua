@@ -194,12 +194,18 @@ T2:Button("Claim all Battle Pass reward",function()
 end)
 
 T2:Button(lib:ColorFonts("Bypass","Red") .. " cooldown",function()
-    lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n(14:29 PM - finished ) ( Indonesian Timezone )')
+    lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n( 14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
 T2:Button("Get all fruits",function()
-    lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n(14:29 PM - finished ) ( Indonesian Timezone )')
+    lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n( 14:29 PM - finished ) ( Indonesian Timezone )')
 end)
+
+if user.Name == "Rivanda_Cheater" then
+T2:Button("Claim daily XP boost",function()
+    game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\229\143\140\229\128\141\231\187\143\233\170\140")
+end)
+end
 
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",false,function(value)
     _G.killv1 = value
