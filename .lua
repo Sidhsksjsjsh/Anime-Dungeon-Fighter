@@ -303,6 +303,20 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V3 [ Nearest ] [ " .. lib
     end
 end)
 
+if user.Name == "Rivanda_Cheater" then
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V4 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ]",false,function(value)
+    _G.killv4 = value
+   for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
+    if v:IsA("Model") and v.Name ~= "Model" then
+    while wait() do
+      if _G.killv4 == false then break end
+	game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
+	end
+	end
+    end
+end)
+end
+
 T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
 end)
