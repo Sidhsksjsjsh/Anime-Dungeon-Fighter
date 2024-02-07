@@ -110,9 +110,9 @@ local function getNearestNPC(character,npcsFolder) -- Your character and the fol
     local rootPosition = rootPart.Position
     
     local maxDistance = 50 -- Change it to the maximum distance you want an NPC to be
-    for _,model in next,npcsFolder:GetDescendants() do
+    for _,model in pairs(workspace["副本地图"]:GetDescendants()) do
         if model:IsA("Model") and model.Name ~= "Model" then
-            local distance = (model.Position - rootPosition).Magnitude
+            local distance = (model.Position - user.Character.HumanoidRootPart.Position).Magnitude
             if distance < maxDistance then
                 game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},model.Name)
             end
