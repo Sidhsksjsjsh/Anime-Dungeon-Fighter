@@ -110,7 +110,7 @@ local function getNearestNPC(character,npcsFolder) -- Your character and the fol
     local rootPosition = rootPart.CFrame
     
     local bestNPC
-    local maxDistance = 50 -- Change it to the maximum distance you want an NPC to be
+    local maxDistance = math.huge -- Change it to the maximum distance you want an NPC to be
     for _,model in next,npcsFolder:GetDescendants() do
         if model:IsA("Model") and model.Name ~= "Model" then
             local distance = (model.CFrame - rootPosition).Magnitude
@@ -304,14 +304,14 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V3 [ Nearest ] [ " .. lib
 end)
 
 if user.Name == "Rivanda_Cheater" then
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V4 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V4 [ every 3s ]",false,function(value)
     _G.killv4 = value
-   for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
-    if v:IsA("Model") and v.Name ~= "Model" then
-    while wait() do
+   while wait(3) do
       if _G.killv4 == false then break end
-	game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
-	end
+	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
+		if v:IsA("Model") and v.Name ~= "Model" then
+			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
+		end
 	end
     end
 end)
