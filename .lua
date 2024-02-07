@@ -566,7 +566,7 @@ task.spawn(function()
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
     if _G.tfurteaw == true then
-	if v.Name ~= "掉落模板" then
+	if loot.Name ~= "掉落模板" then
 		Bring(loot)
 	end
     end
