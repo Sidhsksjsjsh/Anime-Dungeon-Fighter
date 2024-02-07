@@ -316,7 +316,7 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
-T1:Toggle("Auto tp above the crystal",false,function(value)
+T1:Toggle("Auto claim all mails",false,function(value)
 	_G.mails = value
 	for array = 1,9e9 do
 		if _G.mails == false then break end
