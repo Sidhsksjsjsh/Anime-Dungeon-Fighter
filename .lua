@@ -107,21 +107,25 @@ end
 
 local function getNearestNPC(character,npcsFolder) -- Your character and the folder containing all the NPCs
     local rootPart = character["HumanoidRootPart"]
-    local rootPosition = rootPart.CFrame
+    local rootPosition = rootPart.Position
     
-    local bestNPC
-    local maxDistance = math.huge -- Change it to the maximum distance you want an NPC to be
+    local maxDistance = 50 -- Change it to the maximum distance you want an NPC to be
     for _,model in next,npcsFolder:GetDescendants() do
         if model:IsA("Model") and model.Name ~= "Model" then
-            local distance = (model.CFrame - rootPosition).Magnitude
+            local distance = (model.Position - rootPosition).Magnitude
             if distance < maxDistance then
-                --maxDistance = distance
-                bestNPC = model.Name
+                game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},model.Name)
             end
         end
     end
-    
-    return bestNPC
+end
+
+local function getEnemyById(name)
+	if name:sub(1,1) == "1" or name:sub(1,1) == "2" or name:sub(1,1) == "3" or name:sub(1,1) == "4" or name:sub(1,1) == "5" or name:sub(1,1) == "6" or name:sub(1,1) == "7" or name:sub(1,1) == "8" or name:sub(1,1) == "9" or name:sub(1,1) == "0" and name:sub(5,5) == "1" or name:sub(5,5) == "2" or name:sub(5,5) == "3" or name:sub(5,5) == "4" or name:sub(5,5) == "5" or name:sub(5,5) == "6" or name:sub(5,5) == "7" or name:sub(5,5) == "8" or name:sub(5,5) == "9" or name:sub(5,5) == "0" then
+		return true
+	else
+		return false
+	end
 end
 
 local function filterString(str)
@@ -296,10 +300,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V3 [ Nearest ] [ " .. lib
     _G.killv3 = value
     while wait() do
       if _G.killv3 == false then break end
-	local closestNPC = getNearestNPC(user["Character"],workspace["副本地图"])
-		if closestNPC then
-			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},closestNPC)
-		end
+	getNearestNPC(user["Character"],workspace["副本地图"])
     end
 end)
 
@@ -309,7 +310,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V4 [ every 3s ]",false,fu
    while wait(3) do
       if _G.killv4 == false then break end
 	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
-		if v:IsA("Model") and v.Name ~= "Model" then
+		if v:IsA("Model") and v.Name ~= "Model" and getEnemyById(v.Name) then
 			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
 		end
 	end
