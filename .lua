@@ -110,7 +110,7 @@ local function getNearestNPC(character,npcsFolder) -- Your character and the fol
     local rootPosition = rootPart.Position
     
     local maxDistance = 50 -- Change it to the maximum distance you want an NPC to be
-    for _,model in pairs(workspace["副本地图"]:GetDescendants()) do
+    for _,model in ipairs(workspace["副本地图"]:GetDescendants()) do
         if model:IsA("Model") and model.Name ~= "Model" then
             local distance = (model.Position - user.Character.HumanoidRootPart.Position).Magnitude
             if distance < maxDistance then
