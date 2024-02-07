@@ -106,14 +106,14 @@ local function tpabove(prt)
 end
 
 local function getNearestNPC(character,npcsFolder) -- Your character and the folder containing all the NPCs
-    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    local rootPart = character["HumanoidRootPart"]
     local rootPosition = rootPart.CFrame
     
     local bestNPC
     local maxDistance = 50 -- Change it to the maximum distance you want an NPC to be
     for _,model in next,npcsFolder:GetDescendants() do
-        if model:IsA("Model") then
-            local distance = (model.HumanoidRootPart.CFrame.Position - rootPosition).Magnitude
+        if model:IsA("Model") and model.Name ~= "Model" then
+            local distance = (model.CFrame - rootPosition).Magnitude
             if distance < maxDistance then
                 --maxDistance = distance
                 bestNPC = model.Name
