@@ -316,6 +316,15 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
+T1:Toggle("Auto tp above the crystal",false,function(value)
+	_G.mails = value
+	for array = 1,9e9 do
+		if _G.mails == false then break end
+		wait(0.5)
+		game:GetService("ReplicatedStorage")["Msg"]["RemoteEvent"]:FireServer("\233\162\134\229\143\150\233\130\174\228\187\182\229\165\150\229\138\177",array)
+	end
+end)
+
 if user.Name == "Rivanda_Cheater" then
 T1:Toggle("Staff test feature [1] [ Akbar ]",false,function(value)
     _G.FD1 = value
