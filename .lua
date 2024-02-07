@@ -12,6 +12,8 @@ local serverplayer = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local user = serverplayer.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
+local GC = getconnections or get_signal_cons
+local VirtualUser = game:GetService("VirtualUser")
 
 local vis = {
   a = 0,
@@ -70,6 +72,23 @@ local function FindTarget()
       end
     end
   end
+end
+
+local function bypassAFK()
+if GC then
+	for i,v in pairs(GC(user.Idled)) do
+		if v["Disable"] then
+			v["Disable"](v)
+		elseif v["Disconnect"] then
+			v["Disconnect"](v)
+		end
+	end
+else
+	user.Idled:Connect(function()
+		VirtualUser:CaptureController()
+		VirtualUser:ClickButton2(Vector2.new())
+	end)
+end
 end
 
 local function Bring(part)
@@ -377,7 +396,37 @@ T3:Toggle("Auto draw cosmetics [ Cos Coin ]",false,function(value)
       if _G.dc == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\231\154\174\232\130\164\229\184\129\230\138\189\231\154\174\232\130\164")
     end
+end) --https://www.roblox.com/games/12135640403/SOLO-LEVELING-Anime-Dungeon-Fighters?gameSetTypeId=100000003&homePageSessionInfo=acabe681-fcae-435d-a03f-5c7d09501a92&isAd=false&numberOfLoadedTiles=6&page=homePage&placeId=12135640403&position=0&sortPos=0&universeId=4280744785
+
+game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
+
+local dwave = "Wave 1"
+if game.PlaceId == 12135640403 then
+local T7 = wndw:Tab("Solo Dungeon")
+
+T7:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100"},function(value)
+    dwave = value
 end)
+
+T7:Toggle("Auto join solo dungeon",false,function(value)
+	_G.JSD = value
+	while wait() do
+		if _G.JSD == false then break end
+			if wave == "Wave 1" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
+			elseif wave == "Wave 50" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
+			elseif wave == "Wave 100" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
+			else
+				lib:WarnUser("Invalid wave!")
+			end
+	end
+end)
+end
 
 task.spawn(function()
 for array = 1,#codes.list do
@@ -497,11 +546,14 @@ lib:HookCalled(function(self,args)
     end
 end)
 
-lib:WarnUser("dm me on discord if u found any " .. lib:ColorFonts("bugs","Red") .. ".\nmy discord: fahriii._\nDiscord : https://discord.com/invite/FHrVDCUv (Copied)")
+lib:WarnUser("dm me on discord if u found any " .. lib:ColorFonts("bugs","Red") .. ".\nmy discord: fahriii._\nhttps://discord.com/invite/FHrVDCUv (Copied)")
 if user.Name ~= "Rivanda_Cheater" then
 	setclipboard("https://discord.com/invite/FHrVDCUv")
 end
 
+bypassAFK()
+
+task.spawn(function()
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
     if _G.tfurteaw == true then
@@ -518,3 +570,4 @@ user["Character"]["HumanoidRootPart"]:GetPropertyChangedSignal("CFrame"):Connect
 	end
 end)
 end
+end)
