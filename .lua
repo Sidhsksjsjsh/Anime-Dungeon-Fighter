@@ -6,6 +6,7 @@ local T3 = wndw:Tab("Draw")
 local T4 = wndw:Tab("Defense mode")
 local T5 = wndw:Tab("XRAY - TEST")
 local T6 = wndw:Tab("Codes list")
+local T8 = wndw:Tab("Credits")
 
 local workspace = game:GetService("Workspace")
 local serverplayer = game:GetService("Players")
@@ -37,7 +38,8 @@ local codes = {
 		"FREEGIFT",
 		"GOLDGIFT",
 		"GEMGIFT",
-		"BOOSTGIFT"
+		"BOOSTGIFT",
+		"DISCORD"
 	}
 }
 
@@ -121,7 +123,7 @@ local function getNearestNPC(character,npcsFolder) -- Your character and the fol
 end
 
 local function getEnemyById(name)
-	if name:sub(1,1) == "1" or name:sub(1,1) == "2" or name:sub(1,1) == "3" or name:sub(1,1) == "4" or name:sub(1,1) == "5" or name:sub(1,1) == "6" or name:sub(1,1) == "7" or name:sub(1,1) == "8" or name:sub(1,1) == "9" or name:sub(1,1) == "0" and name:sub(5,5) == "1" or name:sub(5,5) == "2" or name:sub(5,5) == "3" or name:sub(5,5) == "4" or name:sub(5,5) == "5" or name:sub(5,5) == "6" or name:sub(5,5) == "7" or name:sub(5,5) == "8" or name:sub(5,5) == "9" or name:sub(5,5) == "0" then
+	if name:sub(1,1) == "1" or name:sub(1,1) == "2" or name:sub(1,1) == "3" or name:sub(1,1) == "4" or name:sub(1,1) == "5" or name:sub(1,1) == "6" or name:sub(1,1) == "7" or name:sub(1,1) == "8" or name:sub(1,1) == "9" or name:sub(1,1) == "0" and name:sub(2,2) == "_" and name:sub(3,3) == "1" or name:sub(3,3) == "2" or name:sub(3,3) == "3" or name:sub(3,3) == "4" or name:sub(3,3) == "5" or name:sub(3,3) == "6" or name:sub(3,3) == "7" or name:sub(3,3) == "8" or name:sub(3,3) == "9" or name:sub(3,3) == "0" then
 		return true
 	else
 		return false
@@ -187,7 +189,7 @@ end)
 end)
 ]]
 
-T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ ENEMY ]",Color3.new(1,1,1),function(value)
+--[[T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ ENEMY ]",Color3.new(1,1,1),function(value)
     for i,v in pairs(workspace:GetDescendants()) do
       if v:FindFirstChild("XRAY") then
         v["XRAY"]["OutlineColor"] = value
@@ -232,6 +234,7 @@ end)
 T5:Button("Visual XRAY [ " .. lib:ColorFonts("PLAYER","Green") .. " ]",function()
     getPlayerESP()
 end)
+]]
 
 T2:Button("Infinite Coins",function()
     game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(7000003,math.huge)
@@ -288,7 +291,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib
     while wait() do
       if _G.killv2 == false then break end
 	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
-		if v:IsA("Model") and v.Name ~= "Model" then
+		if v:IsA("Model") and v.Name ~= "Model" and getEnemyById(v.Parent.Name) then
 			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
 		end
 	end
@@ -310,7 +313,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V4 [ every 3s ]",false,fu
    while wait(3) do
       if _G.killv4 == false then break end
 	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
-		if v:IsA("Model") and v.Name ~= "Model" and getEnemyById(v.Name) then
+		if v:IsA("Model") and v.Name ~= "Model" and getEnemyById(v.Parent.Name) then
 			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
 		end
 	end
@@ -460,6 +463,11 @@ for array = 1,#codes.list do
 end
 end)
 
+T8:Label("Credits:\n\nAkbar - Hook method\nFirman - Server-side bypass\nFahri - Server-side & client-sided bypass\nFarhan - Kill system\nAlya - UI & Notify system")
+T8:Button("Discord invite",function()
+    setclipboard("https://discord.com/invite/FHrVDCUv")
+end)
+
 lib:HookFunction(function(method,self,args)
     if self == "HitEvent" and method == "FireServer" then
       vis.a = args[1]["castPercent"]
@@ -570,7 +578,7 @@ lib:HookCalled(function(self,args)
     end
 end)
 
-lib:WarnUser("dm me on discord if u found any " .. lib:ColorFonts("bugs","Red") .. ".\nmy discord: fahriii._\nhttps://discord.com/invite/FHrVDCUv (Copied)")
+lib:WarnUser(':8763: attempt to index nil with "SpyHook"')
 if user.Name ~= "Rivanda_Cheater" then
 	setclipboard("https://discord.com/invite/FHrVDCUv")
 end
