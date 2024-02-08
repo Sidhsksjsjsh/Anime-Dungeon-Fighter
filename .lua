@@ -236,7 +236,7 @@ T5:Button("Visual XRAY [ " .. lib:ColorFonts("PLAYER","Green") .. " ]",function(
 end)
 ]]
 
-T2:Button("Infinite Coins",function()
+--[[T2:Button("Infinite Coins",function()
     game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(7000003,math.huge)
 end)
 
@@ -244,7 +244,7 @@ T2:Button("Infinite Gems - TEST",function()
     --game:GetService("ReplicatedStorage")["Msg"]["DrawFruit"]:InvokeServer(-math.huge)
     game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(-math.huge,1)
     game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(math.huge,1)
-end)
+end)]]
 
 T2:Button("Claim all Battle Pass reward",function()
     for array = 1,50 do
@@ -253,13 +253,14 @@ T2:Button("Claim all Battle Pass reward",function()
     end
 end)
 
-T2:Button(lib:ColorFonts("Bypass","Red") .. " cooldown",function()
+--[[T2:Button(lib:ColorFonts("Bypass","Red") .. " cooldown",function()
     lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n( 14:29 PM - finished ) ( Indonesian Timezone )')
 end)
 
 T2:Button("Get all fruits",function()
     lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n( 14:29 PM - finished ) ( Indonesian Timezone )')
 end)
+]]
 
 T2:Button("Claim daily XP boost",function()
     game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\229\143\140\229\128\141\231\187\143\233\170\140")
@@ -334,7 +335,7 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
-T1:Toggle("Auto claim all mails",false,function(value)
+T1:Toggle("Auto claim all mails every 0.5",false,function(value)
 	_G.mails = value
 	for array = 1,9e9 do
 		if _G.mails == false then break end
@@ -578,7 +579,7 @@ lib:HookCalled(function(self,args)
     end
 end)
 
-lib:WarnUser(':8763: attempt to index nil with "SpyHook"')
+--lib:WarnUser(':8763: attempt to index nil with "SpyHook"')
 if user.Name ~= "Rivanda_Cheater" then
 	setclipboard("https://discord.com/invite/FHrVDCUv")
 end
