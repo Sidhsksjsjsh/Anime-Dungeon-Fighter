@@ -18,7 +18,7 @@ local VirtualUser = game:GetService("VirtualUser")
 
 local vis = {
   a = 0,
-  b = 30,
+  b = math.huge,
   c = false,
   d = 1,
   e = 15030001,
