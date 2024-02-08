@@ -616,3 +616,21 @@ user["Character"]["HumanoidRootPart"]:GetPropertyChangedSignal("CFrame"):Connect
 end)
 end
 end)
+
+local function getTarget()
+if workspace:WaitForChild("DropFolder") then
+workspace["DropFolder"].ChildAdded:Connect(function(loot)
+    if _G.tfurteaw == true then
+	if loot.Name ~= "掉落模板" then
+		Bring(loot)
+	end
+    end
+end)
+end
+end
+
+workspace.ChildRemoved:Connect(function(folder)
+    if folder.Name == "DropFolder" then
+	getTarget()
+    end
+end)
