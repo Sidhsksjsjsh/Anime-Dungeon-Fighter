@@ -266,7 +266,7 @@ T2:Button("Claim daily XP boost",function()
     game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\229\143\140\229\128\141\231\187\143\233\170\140")
 end)
 
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",false,function(value)
+--[[T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",false,function(value)
     _G.killv1 = value
     while wait() do
       if _G.killv1 == false then break end
@@ -274,7 +274,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts(
     end
 end)
 
---[[if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ] [ Delay 1s ]",false,function(value)
     _G.killv2 = value
     while wait(1) do
@@ -287,7 +287,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib
     end
 end)
 else]]
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " [ Faster ] [ For Bosses ]",false,function(value)
     _G.killv2 = value
     while wait() do
       if _G.killv2 == false then break end
@@ -300,7 +300,7 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib
 end)
 --end
 
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V3 [ Nearest ] [ " .. lib:ColorFonts("Hit","Red") .. " first ] [ 50 ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-boss ]",false,function(value)
     _G.killv3 = value
     while wait() do
       if _G.killv3 == false then break end
