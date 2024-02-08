@@ -298,16 +298,28 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " [ Faster ] [ For Bosses ]
 	end
     end
 end)
+
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-Boss ]",false,function(value)
+    _G.killv5 = value
+    while wait(1) do
+      if _G.killv5 == false then break end
+	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
+		if v:IsA("Model") and v.Name ~= "Model" and getEnemyById(v.Parent.Name) then
+			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
+		end
+	end
+    end
+end)
 --end
 
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-boss ]",false,function(value)
+--[[T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-boss ]",false,function(value)
     _G.killv3 = value
-    while wait() do
+    while wait(1) do
       if _G.killv3 == false then break end
 	getNearestNPC(user["Character"],workspace["副本地图"])
     end
 end)
-
+]]
 if user.Name == "Rivanda_Cheater" then
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V4 [ every 3s ]",false,function(value)
     _G.killv4 = value
