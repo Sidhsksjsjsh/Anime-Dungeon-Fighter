@@ -347,7 +347,7 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
-T1:Toggle("Auto claim all mails every 0.5",false,function(value)
+T1:Toggle("Auto claim mails every 0.5",false,function(value)
 	_G.mails = value
 	for array = 1,9e9 do
 		if _G.mails == false then break end
@@ -478,7 +478,7 @@ end)
 
 T8:Label("Credits:\n\nAkbar - Hook method\nFirman - Server-side bypass\nFahri - Server-side & client-sided bypass\nFarhan - Kill system\nAlya - UI & Notify system")
 T8:Button("Discord invite",function()
-    setclipboard("https://discord.com/invite/FHrVDCUv")
+    setclipboard("https://discord.com/invite/WhrxEa29P9")
 end)
 
 lib:HookFunction(function(method,self,args)
@@ -593,7 +593,7 @@ end)
 
 --lib:WarnUser(':8763: attempt to index nil with "SpyHook"')
 if user.Name ~= "Rivanda_Cheater" then
-	setclipboard("https://discord.com/invite/FHrVDCUv")
+	setclipboard("https://discord.com/invite/WhrxEa29P9")
 end
 
 bypassAFK()
