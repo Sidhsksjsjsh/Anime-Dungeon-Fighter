@@ -476,7 +476,14 @@ for array = 1,#codes.list do
 end
 end)
 
-T8:Label("Credits:\n\nAkbar - Hook method\nFirman - Server-side bypass\nFahri - Server-side & client-sided bypass\nFarhan - Kill system\nAlya - UI & Notify system")
+T8:Label("Credits:")
+T8:Label("Akbar - Hook method")
+T8:Label("Firman - Server-side bypass")
+T8:Label("Fahri - Server-side & client-sided bypass")
+T8:Label("Farhan - Kill system")
+T8:Label("Syifa - UI & Notify system")
+--T8:Label("")
+
 T8:Button("Discord invite",function()
     setclipboard("https://discord.com/invite/WhrxEa29P9")
 end)
