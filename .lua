@@ -1,7 +1,7 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/VAPE-UI-MODDED/main/.lua"))()
 local wndw = lib:Window("VIP Turtle Hub V4 - powered by Turtle Team & Turtle Secure")
 local T1 = wndw:Tab("Main")
-local T2 = wndw:Tab("Server Manipulator")
+local T2 = wndw:Tab("Other features")
 local T3 = wndw:Tab("Draw")
 local T4 = wndw:Tab("Defense mode")
 local T5 = wndw:Tab("XRAY - TEST")
@@ -266,6 +266,15 @@ T2:Button("Claim daily XP boost",function()
     game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\229\143\140\229\128\141\231\187\143\233\170\140")
 end)
 
+T2:Toggle("Auto claim & accept quest",false,function(value)
+	_G.autotask = value
+	while wait() do
+		if _G.autotask == false then break end
+			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150NPC\228\187\187\229\138\161\229\165\150\229\138\177")
+			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150NPC\228\187\187\229\138\161")
+	end
+end)
+
 --[[T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",false,function(value)
     _G.killv1 = value
     while wait() do
@@ -347,11 +356,11 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
-T1:Toggle("Auto claim mails every 0.5",false,function(value)
+T1:Toggle("Auto claim mails every 0.001",false,function(value)
 	_G.mails = value
 	for array = 1,9e9 do
 		if _G.mails == false then break end
-		wait(0.5)
+		wait(0.001)
 		game:GetService("ReplicatedStorage")["Msg"]["RemoteEvent"]:FireServer("\233\162\134\229\143\150\233\130\174\228\187\182\229\165\150\229\138\177",array)
 	end
 end)
@@ -602,6 +611,8 @@ end)
 --lib:WarnUser(':8763: attempt to index nil with "SpyHook"')
 if user.Name ~= "Rivanda_Cheater" then
 	setclipboard("https://discord.com/invite/WhrxEa29P9")
+else
+	user["PlayerGui"]["ScreenGui"]["抽宠物弹窗"]["Frame"]["Diamond"]["Label"]["Text"] = "-infZZ"
 end
 
 bypassAFK()
