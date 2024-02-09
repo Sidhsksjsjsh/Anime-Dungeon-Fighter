@@ -486,6 +486,7 @@ T8:Label("Syifa - UI & Notify system")
 
 T8:Button("Discord invite",function()
     setclipboard("https://discord.com/invite/WhrxEa29P9")
+    lib:WarnUser("Copied to the clipboard")
 end)
 
 lib:HookFunction(function(method,self,args)
