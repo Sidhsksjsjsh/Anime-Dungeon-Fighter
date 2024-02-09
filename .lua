@@ -15,6 +15,7 @@ local user = serverplayer.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
 local GC = getconnections or get_signal_cons
 local VirtualUser = game:GetService("VirtualUser")
+local LogService = game:GetService("LogService")
 
 local vis = {
   a = 0,
@@ -616,6 +617,10 @@ else
 end
 
 bypassAFK()
+for i,v in pairs(getconnections(LogService["MessageOut"])) do
+    v:Disconnect()
+    lib:WarnUser("Anti-lag is enabled!")
+end
 
 task.spawn(function()
 if workspace:WaitForChild("DropFolder") then
