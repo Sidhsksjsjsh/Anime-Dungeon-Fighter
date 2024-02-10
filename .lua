@@ -4,7 +4,7 @@ local T1 = wndw:Tab("Main")
 local T2 = wndw:Tab("Other features")
 local T3 = wndw:Tab("Draw")
 local T4 = wndw:Tab("Defense mode")
-local T5 = wndw:Tab("XRAY - TEST")
+local T5 = wndw:Tab("Dungeon")
 local T6 = wndw:Tab("Codes list")
 local T8 = wndw:Tab("Credits")
 
@@ -77,6 +77,10 @@ local function FindTarget()
   end
 end
 
+local function getLevel()
+	return user["leaderstats"]["Level"]["Value"]
+end
+
 local function bypassAFK()
 if GC then
 	for i,v in pairs(GC(user.Idled)) do
@@ -131,8 +135,16 @@ local function getEnemyById(name)
 	end
 end
 
+--[[
+2_1 - Skull Island [ Lv.60 ]
+2_2 - Desert City [ Lv.80 ]
+2_3 - Frozen Fortress [ Lv.100 ]
+2_4 - Seven Sea [ Lv.120 ]
+2_5 - Grave [ Lv.140 ]
+]]
+
 local function filterString(str)
-	return str:gsub("Wave 1","1"):gsub("Wave 50","2"):gsub("Wave 100","3"):gsub("Wave 150","4"):gsub("Wave 200","5")
+	return str:gsub("Wave 1","1"):gsub("Wave 50","2"):gsub("Wave 100","3"):gsub("Wave 150","4"):gsub("Wave 200","5"):gsub("Skull Island [ Lv.60 ]","2_1"):gsub("Desert City [ Lv.80 ]","2_2"):gsub("Frozen Fortress [ Lv.100 ]","2_3"):gsub("Seven Sea [ Lv.120 ]","2_4"):gsub("Graveyard [ Lv.140 ]","2_5")
 end
 
 local wave = "Wave 1"
@@ -174,6 +186,22 @@ T4:Toggle("Auto tp above the crystal",false,function(value)
 					tpabove(v)
 				end
 			end
+	end
+end)
+
+T5:Dropdown("Select dungeon",{"Skull Island [ Lv.60 ]","Desert City [ Lv.80 ]","Frozen Fortress [ Lv.100 ]","Seven Sea [ Lv.120 ]","Graveyard [ Lv.140 ]"},function(value)
+	_G.dungeonwave = value
+end)
+
+T5:Dropdown("Select difficulty",{"Easy","Normal","Hard","Hell"},function(value)
+	_G.dungeondiff = value
+end)
+
+T5:Toggle("Auto join dungeon ( for 2nd world )",false,function(value)
+	_G.ajdscrt = value
+	while wait() do
+		if _G.ajdscrt == false then break end
+			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",filterString(_G.dungeonwave))
 	end
 end)
 
@@ -366,6 +394,14 @@ T1:Toggle("Auto claim mails every 0.001",false,function(value)
 	end
 end)
 
+T1:Toggle("Auto equip best equipment every 1s",false,function(value)
+    _G.ebees = value
+    while wait() do
+      if _G.ebees == false then break end
+      game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\232\163\133\229\164\135\230\156\128\228\189\179\232\163\133\229\164\135")
+    end
+end)
+
 if user.Name == "Rivanda_Cheater" then
 T1:Toggle("Staff test feature [1] [ Akbar ]",false,function(value)
     _G.FD1 = value
@@ -490,6 +526,7 @@ T8:Label("Credits:")
 T8:Label("Akbar - Hook method")
 T8:Label("Firman - Server-side bypass")
 T8:Label("Fahri - Server-side & client-sided bypass")
+T8:Label("Fania - Currency bypasser")
 T8:Label("Farhan - Kill system")
 T8:Label("Syifa - UI & Notify system")
 --T8:Label("")
