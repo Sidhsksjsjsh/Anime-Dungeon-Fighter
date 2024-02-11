@@ -202,6 +202,15 @@ T5:Toggle("Auto join dungeon ( for 2nd world )",false,function(value)
 	while wait() do
 		if _G.ajdscrt == false then break end
 			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",filterString(_G.dungeonwave))
+			if _G.dungeondiff == "Easy" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
+			elseif _G.dungeondiff == "Normal" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
+			elseif _G.dungeondiff == "Hard" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
+			elseif _G.dungeondiff == "Hell" then
+				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",4)
+			end
 	end
 end)
 
