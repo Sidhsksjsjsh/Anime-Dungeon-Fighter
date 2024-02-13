@@ -16,6 +16,7 @@ local UserInputService = game:GetService("UserInputService")
 local GC = getconnections or get_signal_cons
 local VirtualUser = game:GetService("VirtualUser")
 local LogService = game:GetService("LogService")
+local turtle = {}
 
 local vis = {
   a = 0,
@@ -143,6 +144,10 @@ end
 2_5 - Grave [ Lv.140 ]
 ]]
 
+local function turtle:DungeonTrigger(str)
+	game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",str)
+end
+
 local function filterString(str)
 	return str:gsub("Wave 1","1"):gsub("Wave 50","2"):gsub("Wave 100","3"):gsub("Wave 150","4"):gsub("Wave 200","5"):gsub("Skull Island [ Lv.60 ]","2_1"):gsub("Desert City [ Lv.80 ]","2_2"):gsub("Frozen Fortress [ Lv.100 ]","2_3"):gsub("Seven Sea [ Lv.120 ]","2_4"):gsub("Graveyard [ Lv.140 ]","2_5")
 end
@@ -189,6 +194,28 @@ T4:Toggle("Auto tp above the crystal",false,function(value)
 	end
 end)
 
+--[[
+2_1 - Skull Island [ Lv.60 ]
+2_2 - Desert City [ Lv.80 ]
+2_3 - Frozen Fortress [ Lv.100 ]
+2_4 - Seven Sea [ Lv.120 ]
+2_5 - Grave [ Lv.140 ]
+]]
+
+local function getDungeon(str)
+	if str == "Skull Island [ Lv.60 ]" then
+		turtle:DungeonTrigger("2_1")
+	elseif str == "Desert City [ Lv.80 ]" then
+		turtle:DungeonTrigger("2_2")
+	elseif str == "Frozen Fortress [ Lv.100 ]" then
+		turtle:DungeonTrigger("2_3")
+	elseif str == "Seven Sea [ Lv.120 ]" then
+		turtle:DungeonTrigger("2_4")
+	elseif str == "Graveyard [ Lv.140 ]" then
+		turtle:DungeonTrigger("2_5")
+	end
+end
+
 T5:Dropdown("Select dungeon",{"Skull Island [ Lv.60 ]","Desert City [ Lv.80 ]","Frozen Fortress [ Lv.100 ]","Seven Sea [ Lv.120 ]","Graveyard [ Lv.140 ]"},function(value)
 	_G.dungeonwave = value
 end)
@@ -201,7 +228,7 @@ T5:Toggle("Auto join dungeon ( for 2nd world )",false,function(value)
 	_G.ajdscrt = value
 	while wait() do
 		if _G.ajdscrt == false then break end
-			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",filterString(_G.dungeonwave))
+			getDungeon(_G.dungeonwave)
 			if _G.dungeondiff == "Easy" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
 			elseif _G.dungeondiff == "Normal" then
@@ -531,13 +558,16 @@ for array = 1,#codes.list do
 end
 end)
 
-T8:Label("Credits:")
+T8:Label("Credits: [ 4 boys, 4 girls ]")
 T8:Label("Akbar - Hook method")
 T8:Label("Firman - Server-side bypass")
 T8:Label("Fahri - Server-side & client-sided bypass")
 T8:Label("Fania - Currency bypasser")
 T8:Label("Farhan - Kill system")
 T8:Label("Syifa - UI & Notify system")
+T8:Label("Anggi - Teleport Queue & Teleport system")
+T8:Label("Asya - AI Quest Completed system")
+
 --T8:Label("")
 
 T8:Button("Discord invite",function()
