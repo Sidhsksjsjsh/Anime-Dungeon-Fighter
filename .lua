@@ -16,7 +16,6 @@ local UserInputService = game:GetService("UserInputService")
 local GC = getconnections or get_signal_cons
 local VirtualUser = game:GetService("VirtualUser")
 local LogService = game:GetService("LogService")
-local turtle = {}
 
 local vis = {
   a = 0,
@@ -144,7 +143,7 @@ end
 2_5 - Grave [ Lv.140 ]
 ]]
 
-local function turtle:DungeonTrigger(str)
+local function DungeonTrigger(str)
 	game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",str)
 end
 
@@ -204,15 +203,15 @@ end)
 
 local function getDungeon(str)
 	if str == "Skull Island [ Lv.60 ]" then
-		turtle:DungeonTrigger("2_1")
+		DungeonTrigger("2_1")
 	elseif str == "Desert City [ Lv.80 ]" then
-		turtle:DungeonTrigger("2_2")
+		DungeonTrigger("2_2")
 	elseif str == "Frozen Fortress [ Lv.100 ]" then
-		turtle:DungeonTrigger("2_3")
+		DungeonTrigger("2_3")
 	elseif str == "Seven Sea [ Lv.120 ]" then
-		turtle:DungeonTrigger("2_4")
+		DungeonTrigger("2_4")
 	elseif str == "Graveyard [ Lv.140 ]" then
-		turtle:DungeonTrigger("2_5")
+		DungeonTrigger("2_5")
 	end
 end
 
