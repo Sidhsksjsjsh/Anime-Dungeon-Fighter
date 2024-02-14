@@ -393,19 +393,6 @@ end)
     end
 end)
 ]]
-if user.Name == "Rivanda_Cheater" then
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V4 [ every 3s ]",false,function(value)
-    _G.killv4 = value
-   while wait(3) do
-      if _G.killv4 == false then break end
-	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
-		if v:IsA("Model") and v.Name ~= "Model" and getEnemyById(v.Parent.Name) then
-			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
-		end
-	end
-    end
-end)
-end
 
 T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
@@ -431,7 +418,7 @@ end)
 
 T1:Toggle("Auto equip best equipment every 1s",false,function(value)
     _G.ebees = value
-    while wait() do
+    while wait(1) do
       if _G.ebees == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\232\163\133\229\164\135\230\156\128\228\189\179\232\163\133\229\164\135")
     end
@@ -692,9 +679,10 @@ else
 end
 
 bypassAFK()
+
 for i,v in pairs(getconnections(LogService["MessageOut"])) do
-    v:Disconnect()
     lib:WarnUser("Anti-lag is enabled!")
+    v:Disconnect()
 end
 
 task.spawn(function()
