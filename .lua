@@ -5,6 +5,7 @@ local T2 = wndw:Tab("Other features")
 local T3 = wndw:Tab("Draw")
 local T4 = wndw:Tab("Defense mode")
 local T5 = wndw:Tab("Dungeon")
+local T9 = wndw:Tab("Stats Upgrader")
 local T6 = wndw:Tab("Codes list")
 local T8 = wndw:Tab("Credits")
 
@@ -238,6 +239,80 @@ T5:Toggle("Auto join dungeon ( for 2nd world )",false,function(value)
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",4)
 			end
 	end
+end)
+
+--[[
+--Critical:
+local args = {
+    [1] = "\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",
+    [2] = {
+        ["attr"] = "6",
+        ["addonce"] = 1
+    }
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
+--Defence:
+local args = {
+    [1] = "\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",
+    [2] = {
+        ["attr"] = "2",
+        ["addonce"] = 1
+    }
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
+--Attack:
+local args = {
+    [1] = "\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",
+    [2] = {
+        ["attr"] = "1",
+        ["addonce"] = 1
+    }
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
+--Health: 
+local args = {
+    [1] = "\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",
+    [2] = {
+        ["attr"] = "3",
+        ["addonce"] = 1
+    }
+}
+
+game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
+
+]]
+
+local function UpgStats(str,usage)
+	if type(usage) == "number" or typeof(usage) == "number" then
+		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",{["attr"] = str,["addonce"] = usage})
+	else
+		lib:WarnUser("[ Turtle Client Debugging ]\nThe second argument in the function 'turtle:UpgradeStatsTrigger()' is not a number type.\nPlease change the argument to a number before using this feature")
+	end
+end
+
+T9:Dropdown("Select Stats",{"Health","Attack","Defense","Critical"},function(value)
+	_G.supg = value
+end)
+
+T9:Toggle("Auto upgrade selected stats",false,function(value)
+	_G.Auss = value
+		while wait() do
+			if _G.Auss == false then break end
+			if _G.supg == "Health" then
+				UpgStats("3",1)
+			elseif _G.supg == "Attack" then
+				UpgStats("1",1)
+			elseif _G.supg == "Defense" then
+				UpgStats("2",1)
+			elseif _G.supg == "Critical" then
+				UpgStats("6",1)
+			else
+				lib:WarnUser("Invalid stats name")
+			end
+		end
 end)
 
 --[[T4:Toggle("Auto tp above the crystal V2",false,function(value)
@@ -505,8 +580,6 @@ T3:Toggle("Auto draw cosmetics [ Cos Coin ]",false,function(value)
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\231\154\174\232\130\164\229\184\129\230\138\189\231\154\174\232\130\164")
     end
 end) --https://www.roblox.com/games/12135640403/SOLO-LEVELING-Anime-Dungeon-Fighters?gameSetTypeId=100000003&homePageSessionInfo=acabe681-fcae-435d-a03f-5c7d09501a92&isAd=false&numberOfLoadedTiles=6&page=homePage&placeId=12135640403&position=0&sortPos=0&universeId=4280744785
-
-game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
 
 local dwave = "Wave 1"
 if game.PlaceId == 12135640403 then
