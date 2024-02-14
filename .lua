@@ -78,6 +78,16 @@ local function FindTarget()
   end
 end
 
+local function UserWarning(str,params)
+	lib:WarnUser(str,{
+		AutoClose = params[1],
+		CanClick = params[2],
+		Duration = params[3]
+	})
+end
+
+--UserWarning("",{false,true,10})
+
 local function getLevel()
 	return user["leaderstats"]["Level"]["Value"]
 end
@@ -177,7 +187,7 @@ T4:Toggle("Auto join defense mode ( World 1 & 2 )",false,function(value)
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",5)
 			else
-				lib:WarnUser("Invalid wave!")
+				UserWarning("Invalid wave!",{false,true,10})
 			end
 	end
 end)
@@ -289,7 +299,7 @@ local function UpgStats(str,usage)
 	if type(usage) == "number" or typeof(usage) == "number" then
 		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",{["attr"] = str,["addonce"] = usage})
 	else
-		lib:WarnUser("[ Turtle Client Debugging ]\nThe second argument in the function 'turtle:UpgradeStatsTrigger()' is not a number type.\nPlease change the argument to a number before using this feature")
+		UserWarning("[ Turtle Client Debugging ]\nThe second argument in the function 'turtle:UpgradeStatsTrigger()' is not a number type.\nPlease change the argument to a number before using this feature",{false,true,10})
 	end
 end
 
@@ -310,7 +320,7 @@ T9:Toggle("Auto upgrade selected stats",false,function(value)
 			elseif _G.supg == "Critical" then
 				UpgStats("6",1)
 			else
-				lib:WarnUser("Invalid stats name")
+				UserWarning("Invalid stats name",{false,true,10})
 			end
 		end
 end)
@@ -603,7 +613,7 @@ T7:Toggle("Auto join solo dungeon",false,function(value)
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
 			else
-				lib:WarnUser("Invalid wave!")
+				UserWarning("Invalid wave!",{false,true,10})
 			end
 	end
 end)
@@ -631,7 +641,7 @@ T8:Label("Asya - AI Quest Completed system")
 
 T8:Button("Discord invite",function()
     setclipboard("https://discord.com/invite/WhrxEa29P9")
-    lib:WarnUser("Copied to the clipboard")
+    UserWarning("Copied to the clipboard",{false,true,10})
 end)
 
 lib:HookFunction(function(method,self,args)
@@ -754,7 +764,7 @@ end
 bypassAFK()
 
 for i,v in pairs(getconnections(LogService["MessageOut"])) do
-    lib:WarnUser("Anti-lag is enabled!")
+    UserWarning("Anti-lag is enabled!",{false,true,10})
     v:Disconnect()
 end
 
