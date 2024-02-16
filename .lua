@@ -627,7 +627,7 @@ for array = 1,#codes.list do
 end
 end)
 
-T8:Label("Credits: [ 4 boys, 4 girls ]")
+T8:Label("Credits: [ 6 boys, 3 girls ]")
 T8:Label("Akbar - Hook method")
 T8:Label("Firman - Server-side bypass")
 T8:Label("Fahri - Server-side & client-sided bypass")
@@ -636,6 +636,7 @@ T8:Label("Farhan - Kill system")
 T8:Label("Syifa - UI & Notify system")
 T8:Label("Anggi - Teleport Queue & Teleport system")
 T8:Label("Asya - AI Quest Completed system")
+T8:Label("Andi & Fauzi - Bot Builder")
 
 --T8:Label("")
 
