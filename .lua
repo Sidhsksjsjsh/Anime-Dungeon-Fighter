@@ -20,7 +20,7 @@ local LogService = game:GetService("LogService")
 
 local vis = {
   a = 0,
-  b = math.huge,
+  b = 180000000000,
   c = false,
   d = 1,
   e = 15030001,
