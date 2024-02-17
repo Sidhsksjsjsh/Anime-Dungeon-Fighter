@@ -648,7 +648,6 @@ end)
 lib:HookFunction(function(method,self,args)
     if self == "HitEvent" and method == "FireServer" then
       vis.a = args[1]["castPercent"]
-      vis.b = args[1]["damage"]
       vis.c = args[1]["isSetNetworkOwnerEnemy"]
       vis.d = args[1]["hitID"]
       vis.e = args[1]["skillID"]
@@ -733,7 +732,7 @@ game:GetService("ReplicatedStorage")["Msg"]["RemoteEvent"]:FireServer(unpack(arg
 
 lib:HookCalled(function(self,args)
      if self.Name == "HitEvent" then
-        args[1]["damage"] = math.huge
+        args[1]["damage"] = 180000000000
         --args[1]["phsic"]["Power"] = math.huge
         --args[1]["phsic"]["Time"] = 0
         return self.FireServer(self,unpack(args))
