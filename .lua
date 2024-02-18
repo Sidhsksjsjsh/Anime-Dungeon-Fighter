@@ -86,7 +86,6 @@ local function UserWarning(str,params)
 	})
 end
 
---UserWarning("",{false,true,10})
 
 local function getLevel()
 	return user["leaderstats"]["Level"]["Value"]
@@ -146,14 +145,6 @@ local function getEnemyById(name)
 	end
 end
 
---[[
-2_1 - Skull Island [ Lv.60 ]
-2_2 - Desert City [ Lv.80 ]
-2_3 - Frozen Fortress [ Lv.100 ]
-2_4 - Seven Sea [ Lv.120 ]
-2_5 - Grave [ Lv.140 ]
-]]
-
 local function DungeonTrigger(str)
 	game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",str)
 end
@@ -204,13 +195,6 @@ T4:Toggle("Auto tp above the crystal",false,function(value)
 	end
 end)
 
---[[
-2_1 - Skull Island [ Lv.60 ]
-2_2 - Desert City [ Lv.80 ]
-2_3 - Frozen Fortress [ Lv.100 ]
-2_4 - Seven Sea [ Lv.120 ]
-2_5 - Grave [ Lv.140 ]
-]]
 
 local function getDungeon(str)
 	if str == "Skull Island [ Lv.60 ]" then
@@ -251,49 +235,6 @@ T5:Toggle("Auto join dungeon ( for 2nd world )",false,function(value)
 	end
 end)
 
---[[
---Critical:
-local args = {
-    [1] = "\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",
-    [2] = {
-        ["attr"] = "6",
-        ["addonce"] = 1
-    }
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
---Defence:
-local args = {
-    [1] = "\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",
-    [2] = {
-        ["attr"] = "2",
-        ["addonce"] = 1
-    }
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
---Attack:
-local args = {
-    [1] = "\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",
-    [2] = {
-        ["attr"] = "1",
-        ["addonce"] = 1
-    }
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
---Health: 
-local args = {
-    [1] = "\229\177\158\230\128\167\231\130\185\229\138\160\231\130\185",
-    [2] = {
-        ["attr"] = "3",
-        ["addonce"] = 1
-    }
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer(unpack(args))
-
-]]
 
 local function UpgStats(str,usage)
 	if type(usage) == "number" or typeof(usage) == "number" then
@@ -325,75 +266,6 @@ T9:Toggle("Auto upgrade selected stats",false,function(value)
 		end
 end)
 
---[[T4:Toggle("Auto tp above the crystal V2",false,function(value)
-	_G.dvtst = value
-	while wait() do
-		if _G.dvtst == false then break end
-			for i,v in pairs(game:GetService("Workspace")["副本地图"]:GetDescendants()) do
-				if v.Name == "HumanoidRootPart" and v.Parent == "守护物" then
-					tpabove(v)
-				end
-			end
-	end
-end)
-]]
-
---[[T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ ENEMY ]",Color3.new(1,1,1),function(value)
-    for i,v in pairs(workspace:GetDescendants()) do
-      if v:FindFirstChild("XRAY") then
-        v["XRAY"]["OutlineColor"] = value
-      end
-    end
-end)
-
-T5:Colorpicker("V-XRAY Color [ BOBY COLOR ] [ ENEMY ]",Color3.new(0,1,0),function(value)
-    for i,v in pairs(workspace:GetDescendants()) do
-      if v:FindFirstChild("XRAY") then
-        v["XRAY"]["FillColor"] = value
-      end
-    end
-end)
-
-T5:Colorpicker("V-XRAY Color [ OUTLINE COLOR ] [ PLAYER ]",Color3.new(1,1,1),function(value)
-    for i,v in pairs(serverplayer:GetPlayers()) do
-      if v["Character"]:FindFirstChild("XRAY") then
-        v["Character"]["XRAY"]["OutlineColor"] = value
-      end
-    end
-end)
-
-T5:Colorpicker("V-XRAY Color [ BOBY COLOR ] [ PLAYER ]",Color3.new(0,1,0),function(value)
-    for i,v in pairs(serverplayer:GetPlayers()) do
-      if v["Character"]:FindFirstChild("XRAY") then
-        v["Character"]["XRAY"]["FillColor"] = value
-      end
-    end
-end)
-
-T5:Toggle("Enable V-XRAY",false,function(value)
-    espHD = value
-    FindTarget()
-    getPlayerESP()
-end)
---lib:ColorFonts(str,color)
-T5:Button("Visual XRAY [ " .. lib:ColorFonts("ENEMY","Red") .. " ]",function()
-    FindTarget()
-end)
-
-T5:Button("Visual XRAY [ " .. lib:ColorFonts("PLAYER","Green") .. " ]",function()
-    getPlayerESP()
-end)
-]]
-
---[[T2:Button("Infinite Coins",function()
-    game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(7000003,math.huge)
-end)
-
-T2:Button("Infinite Gems - TEST",function()
-    --game:GetService("ReplicatedStorage")["Msg"]["DrawFruit"]:InvokeServer(-math.huge)
-    game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(-math.huge,1)
-    game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(math.huge,1)
-end)]]
 
 T2:Button("Claim all Battle Pass reward",function()
     for array = 1,50 do
@@ -401,15 +273,6 @@ T2:Button("Claim all Battle Pass reward",function()
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\228\184\128\228\184\170\229\173\163\231\165\168\229\165\150\229\138\177",{["id"] = array,["isPay"] = true})
     end
 end)
-
---[[T2:Button(lib:ColorFonts("Bypass","Red") .. " cooldown",function()
-    lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n( 14:29 PM - finished ) ( Indonesian Timezone )')
-end)
-
-T2:Button("Get all fruits",function()
-    lib:WarnUser('This feature is currently under maintenance\nmaintenance will end from now until it is finished\n( 14:29 PM - finished ) ( Indonesian Timezone )')
-end)
-]]
 
 T2:Button("Claim daily XP boost",function()
     game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\229\143\140\229\128\141\231\187\143\233\170\140")
@@ -432,19 +295,6 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts(
     end
 end)
 
---[[if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V2 [ Raycast ] [ " .. lib:ColorFonts("Hit","Red") .. " first ] [ Delay 1s ]",false,function(value)
-    _G.killv2 = value
-    while wait(1) do
-      if _G.killv2 == false then break end
-	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
-		if v:IsA("Model") and v.Name ~= "Model" then
-			game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},v.Name)
-		end
-	end
-    end
-end)
-else]]
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " [ Faster ] [ For Bosses ]",false,function(value)
     _G.killv2 = value
     while wait() do
@@ -468,16 +318,6 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-Boss ]
 	end
     end
 end)
---end
-
---[[T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-boss ]",false,function(value)
-    _G.killv3 = value
-    while wait(1) do
-      if _G.killv3 == false then break end
-	getNearestNPC(user["Character"],workspace["副本地图"])
-    end
-end)
-]]
 
 T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
@@ -657,84 +497,9 @@ lib:HookFunction(function(method,self,args)
     end
 end)
 
---[[local args = {
-    [1] = "\229\144\140\230\173\165\231\142\169\229\174\182\233\188\160\230\160\135\228\189\141\231\189\174",
-    [2] = {
-        [1] = CFrame.new(30.441062927246094, 23.52494239807129, 260.5985107421875, 0.6233587861061096, -0.17701369524002075, 0.7616364359855652, 4.41700898079489e-10, 0.9740394353866577, 0.22637875378131866, -0.78193598985672, -0.1411151885986328, 0.6071760058403015),
-        [2] = CFrame.new(63.006187438964844, 33.20424270629883, 286.5592956542969, 0.9873019456863403, -0.06899712979793549, 0.14308865368366241, 4.804313391559845e-09, 0.900749146938324, 0.43433982133865356, -0.15885517001152039, -0.4288245439529419, 0.8893113136291504)
-    }
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["RemoteEvent"]:FireServer(unpack(args))
-
-local args = {
-    [1] = {
-        ["eventId"] = 1,
-        ["modelName"] = "KeyEvent",
-        ["isNPC"] = false,
-        ["skillName"] = "\231\136\177\228\185\139\232\131\189\229\138\155-\231\136\177\230\132\143\229\176\129\233\148\129",
-        ["arg"] = {
-            ["humanoid"] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-            ["Caster"] = workspace["Rivanda_Cheater"],
-            ["castTime"] = 0,
-            ["humanoidRootPart"] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-            ["character"] = workspace["Rivanda_Cheater"],
-            ["hitBox"] = {
-                [1] = getNil("HitBox", "Part"),
-                [2] = getNil("HitBox", "Part"),
-                [3] = getNil("HitBox", "Part"),
-                [4] = getNil("HitBox", "Part"),
-                [5] = getNil("HitBox", "Part"),
-                [6] = getNil("HitBox", "Part"),
-                [7] = getNil("HitBox", "Part"),
-                [8] = getNil("HitBox", "Part"),
-                [9] = getNil("HitBox", "Part"),
-                [10] = getNil("HitBox", "Part"),
-                [11] = getNil("HitBox", "Part"),
-                [12] = getNil("HitBox", "Part")
-            },
-            ["player"] = game:GetService("Players").LocalPlayer,
-            ["handle"] = game:GetService("Players").LocalPlayer.Character.RightHand,
-            ["Releaser"] = game:GetService("Players").LocalPlayer,
-            ["animator"] = game:GetService("Players").LocalPlayer.Character.Humanoid.Animator,
-            ["AtkedEnemy"] = {
-                [1] = "27283",
-                [2] = "27284",
-                [3] = "27285",
-                [4] = "27301",
-                [5] = "27302"
-            },
-            ["castMinTime"] = 0,
-            ["animationPlayer"] = {
-                ["PlayNPCName"] = function PlayNPCName() end -- Function Called: PlayNPCName,
-                ["StopName"] = function StopName() end -- Function Called: StopName,
-                ["Stop"] = function Stop() end -- Function Called: Stop,
-                ["Play"] = function Play() end -- Function Called: Play
-            }
-        },
-        ["nowIndex"] = 3,
-        ["skillId"] = "15070303"
-    }
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["Performance"]:FireServer(unpack(args))
-
-local args = {
-    [1] = "\229\144\140\230\173\165\231\142\169\229\174\182\233\188\160\230\160\135\228\189\141\231\189\174",
-    [2] = {
-        [1] = CFrame.new(30.441062927246094, 23.52494239807129, 260.5985107421875, 0.6233587861061096, -0.17701369524002075, 0.7616364359855652, 4.41700898079489e-10, 0.9740394353866577, 0.22637875378131866, -0.78193598985672, -0.1411151885986328, 0.6071760058403015),
-        [2] = CFrame.new(63.006187438964844, 33.20424270629883, 286.5592956542969, 0.9873019456863403, -0.06899712979793549, 0.14308865368366241, 4.804313391559845e-09, 0.900749146938324, 0.43433982133865356, -0.15885517001152039, -0.4288245439529419, 0.8893113136291504)
-    }
-}
-
-game:GetService("ReplicatedStorage")["Msg"]["RemoteEvent"]:FireServer(unpack(args))
-]]
-
 lib:HookCalled(function(self,args)
      if self.Name == "HitEvent" then
         args[1]["damage"] = 180000000000
-        --args[1]["phsic"]["Power"] = math.huge
-        --args[1]["phsic"]["Time"] = 0
         return self.FireServer(self,unpack(args))
     elseif self.Name == "RemoteFunction" and args[1] == "\229\150\130\229\133\187\229\174\160\231\137\169" and _G.maxh == true then
         args[2]["FeedItemVt"]["1002"] = math.huge
@@ -754,7 +519,6 @@ lib:HookCalled(function(self,args)
     end
 end)
 
---lib:WarnUser(':8763: attempt to index nil with "SpyHook"')
 if user.Name ~= "Rivanda_Cheater" then
 	setclipboard("https://discord.com/invite/WhrxEa29P9")
 else
