@@ -527,6 +527,8 @@ end
 
 bypassAFK()
 
+UserWarning("Dear " .. user.DisplayName .. ".\nSorry, we are no longer making or updating this script\nbecause we are now focused on making games made by our team.\n\nFrom Omar - Staff",{false,true,10})
+
 for i,v in pairs(getconnections(LogService["MessageOut"])) do
     UserWarning("Anti-lag is enabled!",{false,true,10})
     v:Disconnect()
