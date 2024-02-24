@@ -145,8 +145,12 @@ local function getEnemyById(name)
 	end
 end
 
-local function DungeonTrigger(str)
-	game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",str)
+local function DungeonTrigger(str,dsct)
+	if dsct == "trigger" then
+		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180",str)
+	elseif dsct == "untrigger" then
+		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\128\128\229\135\186\231\187\132\233\152\159\230\136\191\233\151\180",str)
+	end
 end
 
 local function filterString(str)
@@ -196,17 +200,17 @@ T4:Toggle("Auto tp above the crystal",false,function(value)
 end)
 
 
-local function getDungeon(str)
+local function getDungeon(str,gst)
 	if str == "Skull Island [ Lv.60 ]" then
-		DungeonTrigger("2_1")
+		DungeonTrigger("2_1",gst)
 	elseif str == "Desert City [ Lv.80 ]" then
-		DungeonTrigger("2_2")
+		DungeonTrigger("2_2",gst)
 	elseif str == "Frozen Fortress [ Lv.100 ]" then
-		DungeonTrigger("2_3")
+		DungeonTrigger("2_3",gst)
 	elseif str == "Seven Sea [ Lv.120 ]" then
-		DungeonTrigger("2_4")
+		DungeonTrigger("2_4",gst)
 	elseif str == "Graveyard [ Lv.140 ]" then
-		DungeonTrigger("2_5")
+		DungeonTrigger("2_5",gst)
 	end
 end
 
@@ -218,11 +222,12 @@ T5:Dropdown("Select difficulty",{"Easy","Normal","Hard","Hell"},function(value)
 	_G.dungeondiff = value
 end)
 
-T5:Toggle("Auto join dungeon ( for 2nd world )",false,function(value)
+T5:Toggle("Auto join dungeon ( 2nd world only )",false,function(value)
 	_G.ajdscrt = value
+	getDungeon(_G.dungeonwave,"untrigger")
 	while wait() do
 		if _G.ajdscrt == false then break end
-			getDungeon(_G.dungeonwave)
+			getDungeon(_G.dungeonwave,"trigger")
 			if _G.dungeondiff == "Easy" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
 			elseif _G.dungeondiff == "Normal" then
@@ -235,6 +240,9 @@ T5:Toggle("Auto join dungeon ( for 2nd world )",false,function(value)
 	end
 end)
 
+T5:Button("Join dungeon ( 2nd world only )",function()
+	getDungeon(_G.dungeonwave,"trigger")
+end)
 
 local function UpgStats(str,usage)
 	if type(usage) == "number" or typeof(usage) == "number" then
