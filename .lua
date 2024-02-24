@@ -9,6 +9,7 @@ local T9 = wndw:Tab("Stats Upgrader")
 local T6 = wndw:Tab("Codes list")
 local T8 = wndw:Tab("Credits")
 local T10 = wndw:Tab("Save")
+local CnfgIndicators = T10:Label("Config Indicators\n{}")
 
 local workspace = game:GetService("Workspace")
 local serverplayer = game:GetService("Players")
@@ -41,10 +42,12 @@ local configsystem = {
 	DrawHeroX10 = false,
 	DrawCosmetics = false,
 	JoinSoloDungeon = false,
-	txt = "",
-	txt = "",
-	txt = ""
-}
+	DefenseWave = "Wave 1",
+	DungeonWave = "Skull Island [ Lv.60 ]",
+	DungeonDifficult = "Easy",
+	SelectedStats = "Health",
+	SoloDungeonWave = "Wave 1"
+} --configsystem.
 
 function saveSettings()
     local d = HttpService:JSONEncode(configsystem)
@@ -205,7 +208,7 @@ end
 
 local wave = "Wave 1"
 T4:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100","Wave 150","Wave 200"},function(value)
-    DefenseWave = value
+    configsystem.DefenseWave = value
 end)
 
 T4:Toggle("Auto join defense mode ( World 1 & 2 )",configsystem.JoinDefense,function(value)
@@ -213,19 +216,19 @@ T4:Toggle("Auto join defense mode ( World 1 & 2 )",configsystem.JoinDefense,func
 	configsystem.JoinDefense = value
 	while wait() do
 		if _G.JDM == false then break end
-			if DefenseWave == "Wave 1" then
+			if configsystem.DefenseWave == "Wave 1" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
-			elseif DefenseWave == "Wave 50" then
+			elseif configsystem.DefenseWave == "Wave 50" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
-			elseif DefenseWave == "Wave 100" then
+			elseif configsystem.DefenseWave == "Wave 100" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
-			elseif DefenseWave == "Wave 150" then
+			elseif configsystem.DefenseWave == "Wave 150" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",4)
-			elseif DefenseWave == "Wave 200" then
+			elseif configsystem.DefenseWave == "Wave 200" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",5)
 			else
@@ -263,34 +266,34 @@ local function getDungeon(str,gst)
 end
 
 T5:Dropdown("Select dungeon",{"Skull Island [ Lv.60 ]","Desert City [ Lv.80 ]","Frozen Fortress [ Lv.100 ]","Seven Sea [ Lv.120 ]","Graveyard [ Lv.140 ]"},function(value)
-	DungeonWave = value
+	configsystem.DungeonWave = value
 end)
 
 T5:Dropdown("Select difficulty",{"Easy","Normal","Hard","Hell"},function(value)
-	DungeonDifficult = value
+	configsystem.DungeonDifficult = value
 end)
 
 T5:Toggle("Auto join dungeon ( 2nd world only )",configsystem.JoinDungeon,function(value)
 	_G.ajdscrt = value
 	configsystem.JoinDungeon = value
-	getDungeon(DungeonWave,"untrigger")
+	getDungeon(configsystem.DungeonWave,"untrigger")
 	while wait() do
 		if _G.ajdscrt == false then break end
-			getDungeon(DungeonWave,"trigger")
-			if DungeonDifficult == "Easy" then
+			getDungeon(configsystem.DungeonWave,"trigger")
+			if configsystem.DungeonDifficult == "Easy" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
-			elseif DungeonDifficult == "Normal" then
+			elseif configsystem.DungeonDifficult == "Normal" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
-			elseif DungeonDifficult == "Hard" then
+			elseif configsystem.DungeonDifficult == "Hard" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
-			elseif DungeonDifficult == "Hell" then
+			elseif configsystem.DungeonDifficult == "Hell" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",4)
 			end
 	end
 end)
 
 T5:Button("Join dungeon ( 2nd world only )",function()
-	getDungeon(_G.dungeonwave,"trigger")
+	getDungeon(configsystem.DungeonWave,"trigger")
 end)
 
 local function UpgStats(str,usage)
@@ -302,7 +305,7 @@ local function UpgStats(str,usage)
 end
 
 T9:Dropdown("Select Stats",{"Health","Attack","Defense","Critical"},function(value)
-	SelectedStats = value
+	configsystem.SelectedStats = value
 end)
 
 T9:Toggle("Auto upgrade selected stats",configsystem.UpgradeStats,function(value)
@@ -310,13 +313,13 @@ T9:Toggle("Auto upgrade selected stats",configsystem.UpgradeStats,function(value
 	configsystem.UpgradeStats = value
 		while wait() do
 			if _G.Auss == false then break end
-			if SelectedStats == "Health" then
+			if configsystem.SelectedStats == "Health" then
 				UpgStats("3",1)
-			elseif SelectedStats == "Attack" then
+			elseif configsystem.SelectedStats == "Attack" then
 				UpgStats("1",1)
-			elseif SelectedStats == "Defense" then
+			elseif configsystem.SelectedStats == "Defense" then
 				UpgStats("2",1)
-			elseif SelectedStats == "Critical" then
+			elseif configsystem.SelectedStats == "Critical" then
 				UpgStats("6",1)
 			else
 				UserWarning("Invalid stats name",{false,true,10})
@@ -493,7 +496,7 @@ if game.PlaceId == 12135640403 then
 local T7 = wndw:Tab("Solo Dungeon")
 
 T7:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100"},function(value)
-    SoloDungeonWave = value
+    configsystem.SoloDungeonWave = value
 end)
 
 T7:Toggle("Auto join solo dungeon",configsystem.JoinSoloDungeon,function(value)
@@ -501,13 +504,13 @@ T7:Toggle("Auto join solo dungeon",configsystem.JoinSoloDungeon,function(value)
 	configsystem.JoinSoloDungeon = value
 	while wait() do
 		if _G.JSD == false then break end
-			if SoloDungeonWave == "Wave 1" then
+			if configsystem.SoloDungeonWave == "Wave 1" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
-			elseif SoloDungeonWave == "Wave 50" then
+			elseif configsystem.SoloDungeonWave == "Wave 50" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
-			elseif SoloDungeonWave == "Wave 100" then
+			elseif configsystem.SoloDungeonWave == "Wave 100" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
 			else
@@ -516,6 +519,16 @@ T7:Toggle("Auto join solo dungeon",configsystem.JoinSoloDungeon,function(value)
 	end
 end)
 end
+
+task.spawn(function() --HttpService:JSONEncode(configsystem)
+	while wait() do
+		CnfgIndicators:EditLabel("Config Indicators\n" .. lib:ColorFonts(HttpService:JSONEncode(configsystem),"Yellow"))
+	end
+end)
+
+T10:Button("Save Configs",function()
+	saveSettings()
+end)
 
 task.spawn(function()
 for array = 1,#codes.list do
@@ -628,3 +641,4 @@ workspace.ChildRemoved:Connect(function(folder)
 	getTarget()
     end
 end)
+--CnfgIndicators:EditLabel(str)
