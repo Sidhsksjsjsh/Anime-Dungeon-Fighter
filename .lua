@@ -8,6 +8,7 @@ local T5 = wndw:Tab("Dungeon")
 local T9 = wndw:Tab("Stats Upgrader")
 local T6 = wndw:Tab("Codes list")
 local T8 = wndw:Tab("Credits")
+local T10 = wndw:Tab("Save")
 
 local workspace = game:GetService("Workspace")
 local serverplayer = game:GetService("Players")
@@ -17,6 +18,51 @@ local UserInputService = game:GetService("UserInputService")
 local GC = getconnections or get_signal_cons
 local VirtualUser = game:GetService("VirtualUser")
 local LogService = game:GetService("LogService")
+local HttpService = game:GetService("HttpService")
+local a = "Vortex Admin"
+local b = "SettingsFile.lua"
+local configsystem = {
+	JoinDefense = false,
+	AboveCrystal = false,
+	JoinDungeon = false,
+	UpgradeStats = false,
+	ClaimAndAcceptQuest = false,
+	KillV1 = false,
+	FastAutoKill = false,
+	SlowAutoKill = false,
+	CollectLootDrops = false,
+	CollectMails = false,
+	EquipBestEquipment = false,
+	AutoDrawX1 = false,
+	AutoDrawX10 = false,
+	DrawWeaponX1 = false,
+	DrawWeaponX3 = false,
+	DrawHeroX1 = false,
+	DrawHeroX10 = false,
+	DrawCosmetics = false,
+	JoinSoloDungeon = false,
+	txt = "",
+	txt = "",
+	txt = ""
+}
+
+function saveSettings()
+    local d = HttpService:JSONEncode(configsystem)
+    if writefile then
+        if isfolder(a) then
+            writefile(a .. "-" .. b,d)
+        else
+            makefolder(a)
+            writefile(a .. "-" .. b,d)
+        end
+    end
+end
+function loadSettings()
+    if isfile(a .. "-" .. b) then
+        configsystem = HttpService:JSONDecode(readfile(a .. "-" .. b))
+    end
+end
+loadSettings()
 
 local vis = {
   a = 0,
@@ -159,26 +205,27 @@ end
 
 local wave = "Wave 1"
 T4:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100","Wave 150","Wave 200"},function(value)
-    wave = value
+    DefenseWave = value
 end)
 
-T4:Toggle("Auto join defense mode ( World 1 & 2 )",false,function(value)
+T4:Toggle("Auto join defense mode ( World 1 & 2 )",configsystem.JoinDefense,function(value)
 	_G.JDM = value
+	configsystem.JoinDefense = value
 	while wait() do
 		if _G.JDM == false then break end
-			if wave == "Wave 1" then
+			if DefenseWave == "Wave 1" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
-			elseif wave == "Wave 50" then
+			elseif DefenseWave == "Wave 50" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
-			elseif wave == "Wave 100" then
+			elseif DefenseWave == "Wave 100" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
-			elseif wave == "Wave 150" then
+			elseif DefenseWave == "Wave 150" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",4)
-			elseif wave == "Wave 200" then
+			elseif DefenseWave == "Wave 200" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\229\161\148\233\152\178\230\168\161\229\188\143")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",5)
 			else
@@ -187,8 +234,9 @@ T4:Toggle("Auto join defense mode ( World 1 & 2 )",false,function(value)
 	end
 end)
 
-T4:Toggle("Auto tp above the crystal",false,function(value)
+T4:Toggle("Auto tp above the crystal",configsystem.AboveCrystal,function(value)
 	_G.tpac = value
+	configsystem.AboveCrystal = value
 	while wait() do
 		if _G.tpac == false then break end
 			for i,v in pairs(game:GetService("Workspace")["副本地图"]:GetDescendants()) do
@@ -215,26 +263,27 @@ local function getDungeon(str,gst)
 end
 
 T5:Dropdown("Select dungeon",{"Skull Island [ Lv.60 ]","Desert City [ Lv.80 ]","Frozen Fortress [ Lv.100 ]","Seven Sea [ Lv.120 ]","Graveyard [ Lv.140 ]"},function(value)
-	_G.dungeonwave = value
+	DungeonWave = value
 end)
 
 T5:Dropdown("Select difficulty",{"Easy","Normal","Hard","Hell"},function(value)
-	_G.dungeondiff = value
+	DungeonDifficult = value
 end)
 
-T5:Toggle("Auto join dungeon ( 2nd world only )",false,function(value)
+T5:Toggle("Auto join dungeon ( 2nd world only )",configsystem.JoinDungeon,function(value)
 	_G.ajdscrt = value
-	getDungeon(_G.dungeonwave,"untrigger")
+	configsystem.JoinDungeon = value
+	getDungeon(DungeonWave,"untrigger")
 	while wait() do
 		if _G.ajdscrt == false then break end
-			getDungeon(_G.dungeonwave,"trigger")
-			if _G.dungeondiff == "Easy" then
+			getDungeon(DungeonWave,"trigger")
+			if DungeonDifficult == "Easy" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
-			elseif _G.dungeondiff == "Normal" then
+			elseif DungeonDifficult == "Normal" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
-			elseif _G.dungeondiff == "Hard" then
+			elseif DungeonDifficult == "Hard" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
-			elseif _G.dungeondiff == "Hell" then
+			elseif DungeonDifficult == "Hell" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",4)
 			end
 	end
@@ -253,20 +302,21 @@ local function UpgStats(str,usage)
 end
 
 T9:Dropdown("Select Stats",{"Health","Attack","Defense","Critical"},function(value)
-	_G.supg = value
+	SelectedStats = value
 end)
 
-T9:Toggle("Auto upgrade selected stats",false,function(value)
+T9:Toggle("Auto upgrade selected stats",configsystem.UpgradeStats,function(value)
 	_G.Auss = value
+	configsystem.UpgradeStats = value
 		while wait() do
 			if _G.Auss == false then break end
-			if _G.supg == "Health" then
+			if SelectedStats == "Health" then
 				UpgStats("3",1)
-			elseif _G.supg == "Attack" then
+			elseif SelectedStats == "Attack" then
 				UpgStats("1",1)
-			elseif _G.supg == "Defense" then
+			elseif SelectedStats == "Defense" then
 				UpgStats("2",1)
-			elseif _G.supg == "Critical" then
+			elseif SelectedStats == "Critical" then
 				UpgStats("6",1)
 			else
 				UserWarning("Invalid stats name",{false,true,10})
@@ -286,8 +336,9 @@ T2:Button("Claim daily XP boost",function()
     game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\229\143\140\229\128\141\231\187\143\233\170\140")
 end)
 
-T2:Toggle("Auto claim & accept quest",false,function(value)
+T2:Toggle("Auto claim & accept quest",configsystem.ClaimAndAcceptQuest,function(value)
 	_G.autotask = value
+	configsystem.ClaimAndAcceptQuest = value
 	while wait() do
 		if _G.autotask == false then break end
 			game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150NPC\228\187\187\229\138\161\229\165\150\229\138\177")
@@ -295,16 +346,18 @@ T2:Toggle("Auto claim & accept quest",false,function(value)
 	end
 end)
 
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",configsystem.KillV1,function(value)
     _G.killv1 = value
+    configsystem.KillV1 = value
     while wait() do
       if _G.killv1 == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["HitEvent"]:FireServer({["castPercent"] = vis.a,["damage"] = vis.b,["isSetNetworkOwnerEnemy"] = vis.c,["hitID"] = vis.d,["skillID"] = vis.e},vis.f)
     end
 end)
 
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " [ Faster ] [ For Bosses ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " [ Faster ] [ For Bosses ]",configsystem.FastAutoKill,function(value)
     _G.killv2 = value
+    configsystem.FastAutoKill = value
     while wait() do
       if _G.killv2 == false then break end
 	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
@@ -315,8 +368,9 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " [ Faster ] [ For Bosses ]
     end
 end)
 
-T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-Boss ]",false,function(value)
+T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-Boss ]",configsystem.SlowAutoKill,function(value)
     _G.killv5 = value
+    configsystem.SlowAutoKill = value
     while wait(1) do
       if _G.killv5 == false then break end
 	for i,v in pairs(workspace["副本地图"]:GetDescendants()) do
@@ -327,12 +381,14 @@ T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " every 1s [ For Non-Boss ]
     end
 end)
 
-T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
+--[[T1:Toggle("Auto level max hero [ Feed ]",false,function(value)
     _G.maxh = value
 end)
+]]
 
-T1:Toggle("Auto collect loot drops",false,function(value)
+T1:Toggle("Auto collect loot drops",configsystem.CollectLootDrops,function(value)
     _G.tfurteaw = value
+    configsystem.CollectLootDrops = value
     for i,v in pairs(workspace["DropFolder"]:GetChildren()) do
 	if v.Name ~= "掉落模板" then
 		Bring(v)
@@ -340,8 +396,9 @@ T1:Toggle("Auto collect loot drops",false,function(value)
     end
 end)
 
-T1:Toggle("Auto claim mails every 0.001",false,function(value)
+T1:Toggle("Auto claim mails every 0.001",configsystem.CollectMails,function(value)
 	_G.mails = value
+	configsystem.CollectMails = value
 	for array = 1,9e9 do
 		if _G.mails == false then break end
 		wait(0.001)
@@ -349,8 +406,9 @@ T1:Toggle("Auto claim mails every 0.001",false,function(value)
 	end
 end)
 
-T1:Toggle("Auto equip best equipment every 1s",false,function(value)
+T1:Toggle("Auto equip best equipment every 1s",configsystem.EquipBestEquipment,function(value)
     _G.ebees = value
+    configsystem.EquipBestEquipment = value
     while wait(1) do
       if _G.ebees == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\232\163\133\229\164\135\230\156\128\228\189\179\232\163\133\229\164\135")
@@ -367,72 +425,63 @@ T1:Toggle("Staff test feature [2] [ Akbar ]",false,function(value)
 end)
 end
 
-T3:Toggle("Auto draw fruit [ X1 ]",false,function(value)
+T3:Toggle("Auto draw fruit [ X1 ]",configsystem.AutoDrawX1,function(value)
     _G.df = value
+    configsystem.AutoDrawX1 = value
     while wait() do
       if _G.df == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawFruit"]:InvokeServer(1)
     end
 end)
 
-T3:Toggle("Auto draw fruit [ X10 ]",false,function(value)
+T3:Toggle("Auto draw fruit [ X10 ]",configsystem.AutoDrawX10,function(value)
     _G.dfn = value
+    configsystem.AutoDrawX10 = value
     while wait() do
       if _G.dfn == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawFruit"]:InvokeServer(10)
     end
 end)
 
-T3:Toggle("Draw weapon [ Draw before enabling this ] [ X1 ]",false,function(value)
+T3:Toggle("Draw weapon [ Draw before enabling this ] [ X1 ]",configsystem.DrawWeaponX1,function(value)
     _G.dw1 = value
+    configsystem.DrawWeaponX1 = value
     while wait() do
       if _G.dw1 == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(draw.a,1)
     end
 end)
 
-T3:Toggle("Draw weapon [ Draw before enabling this ] [ X3 ]",false,function(value)
+T3:Toggle("Draw weapon [ Draw before enabling this ] [ X3 ]",configsystem.DrawWeaponX3,function(value)
     _G.dw2 = value
+    configsystem.DrawWeaponX3 = value
     while wait() do
       if _G.dw2 == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawWeapon"]:InvokeServer(draw.a,3)
     end
 end)
 
-T3:Toggle("Draw hero [ X1 ] [ World 1 ]",false,function(value)
+T3:Toggle("Draw hero [ X1 ] [ World 1 ]",configsystem.DrawHeroX1,function(value)
     _G.dh1 = value
+    configsystem.DrawHeroX1 = value
     while wait() do
       if _G.dh1 == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(1,1)
     end
 end)
 
-T3:Toggle("Draw hero [ X10 ] [ World 1 ]",false,function(value)
+T3:Toggle("Draw hero [ X10 ] [ World 1 ]",configsystem.DrawHeroX10,function(value)
     _G.dh2 = value
+    configsystem.DrawHeroX10 = value
     while wait() do
       if _G.dh2 == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(1,10)
     end
 end)
 
-T3:Toggle("Draw hero [ X1 ] [ World 2 ]",false,function(value)
-    _G.dh3 = value
-    while wait() do
-      if _G.dh3 == false then break end
-      game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(2,1)
-    end
-end)
-
-T3:Toggle("Draw hero [ X10 ] [ World 2 ]",false,function(value)
-    _G.dh4 = value
-    while wait() do
-      if _G.dh4 == false then break end
-      game:GetService("ReplicatedStorage")["Msg"]["DrawHero"]:InvokeServer(2,10)
-    end
-end)
-
-T3:Toggle("Auto draw cosmetics [ Cos Coin ]",false,function(value)
+T3:Toggle("Auto draw cosmetics [ Cos Coin ]",configsystem.DrawCosmetics,function(value)
     _G.dc = value
+    configsystem.DrawCosmetics = value
     while wait() do
       if _G.dc == false then break end
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\231\154\174\232\130\164\229\184\129\230\138\189\231\154\174\232\130\164")
@@ -444,20 +493,21 @@ if game.PlaceId == 12135640403 then
 local T7 = wndw:Tab("Solo Dungeon")
 
 T7:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100"},function(value)
-    dwave = value
+    SoloDungeonWave = value
 end)
 
-T7:Toggle("Auto join solo dungeon",false,function(value)
+T7:Toggle("Auto join solo dungeon",configsystem.JoinSoloDungeon,function(value)
 	_G.JSD = value
+	configsystem.JoinSoloDungeon = value
 	while wait() do
 		if _G.JSD == false then break end
-			if dwave == "Wave 1" then
+			if SoloDungeonWave == "Wave 1" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
-			elseif dwave == "Wave 50" then
+			elseif SoloDungeonWave == "Wave 50" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
-			elseif dwave == "Wave 100" then
+			elseif SoloDungeonWave == "Wave 100" then
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\229\138\160\229\133\165\231\187\132\233\152\159\230\136\191\233\151\180","\231\139\172\232\135\170\229\141\135\231\186\167\229\137\175\230\156\172")
 				game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
 			else
@@ -483,7 +533,7 @@ T8:Label(lib:ColorFonts("USER BANNED FROM TURTLE TEAM","Red"))
 T8:Label("Farhan - Kill system")
 T8:Label("Syifa - UI & Notify system")
 T8:Label("Anggi - Teleport Queue & Teleport system")
-T8:Label("Asya - AI Quest Completed system")
+T8:Label("Asya - Save system")
 T8:Label("Andi & Fauzi - Bot Builder")
 
 --T8:Label("")
@@ -509,9 +559,9 @@ lib:HookCalled(function(self,args)
      if self.Name == "HitEvent" then
         args[1]["damage"] = 180000000000
         return self.FireServer(self,unpack(args))
-    elseif self.Name == "RemoteFunction" and args[1] == "\229\150\130\229\133\187\229\174\160\231\137\169" and _G.maxh == true then
+   --[[ elseif self.Name == "RemoteFunction" and args[1] == "\229\150\130\229\133\187\229\174\160\231\137\169" and _G.maxh == true then
         args[2]["FeedItemVt"]["1002"] = math.huge
-        return self.InvokeServer(self,unpack(args))
+        return self.InvokeServer(self,unpack(args))]]
     elseif self.Name == "RemoteFunction" and args[1] == "\230\138\149\231\165\168\233\154\190\229\186\166" and _G.jarne == true then
         args[2] = nbf(_G.mode)
         return self.InvokeServer(self,unpack(args))
@@ -535,7 +585,7 @@ end
 
 bypassAFK()
 
-UserWarning("Dear " .. user.DisplayName .. ".\nSorry, we are no longer making or updating this script\nbecause we are now focused on making games made by our team.\n\nFrom Omar - Staff",{false,true,10})
+--UserWarning("Dear " .. user.DisplayName .. ".\nSorry, we are no longer making or updating this script\nbecause we are now focused on making games made by our team.\n\nFrom Omar - Staff",{false,true,10})
 
 for i,v in pairs(getconnections(LogService["MessageOut"])) do
     UserWarning("Anti-lag is enabled!",{false,true,10})
@@ -545,7 +595,7 @@ end
 task.spawn(function()
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
-    if _G.tfurteaw == true then
+    if configsystem.CollectLootDrops == true then
 	if loot.Name ~= "掉落模板" then
 		Bring(loot)
 	end
@@ -564,7 +614,7 @@ end)
 local function getTarget()
 if workspace:WaitForChild("DropFolder") then
 workspace["DropFolder"].ChildAdded:Connect(function(loot)
-    if _G.tfurteaw == true then
+    if configsystem.CollectLootDrops == true then
 	if loot.Name ~= "掉落模板" then
 		Bring(loot)
 	end
