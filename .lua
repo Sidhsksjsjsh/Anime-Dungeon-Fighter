@@ -20,8 +20,8 @@ local GC = getconnections or get_signal_cons
 local VirtualUser = game:GetService("VirtualUser")
 local LogService = game:GetService("LogService")
 local HttpService = game:GetService("HttpService")
-local a = "Vortex Admin"
-local b = "SettingsFile.lua"
+local a = "Turtle Hub"
+local b = "ConfigSaver.lua"
 local configsystem = {
 	JoinDefense = false,
 	AboveCrystal = false,
@@ -49,7 +49,7 @@ local configsystem = {
 	SoloDungeonWave = "Wave 1"
 } --configsystem.
 
-function saveSettings()
+local function saveSettings()
     local d = HttpService:JSONEncode(configsystem)
     if writefile then
         if isfolder(a) then
@@ -60,7 +60,8 @@ function saveSettings()
         end
     end
 end
-function loadSettings()
+
+local function loadSettings()
     if isfile(a .. "-" .. b) then
         configsystem = HttpService:JSONDecode(readfile(a .. "-" .. b))
     end
