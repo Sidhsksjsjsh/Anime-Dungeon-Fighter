@@ -295,6 +295,15 @@ end)
 
 T5:Button("Join dungeon ( 2nd world only )",function()
 	getDungeon(configsystem.DungeonWave,"trigger")
+	if configsystem.DungeonDifficult == "Easy" then
+		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
+	elseif configsystem.DungeonDifficult == "Normal" then
+		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",2)
+	elseif configsystem.DungeonDifficult == "Hard" then
+		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",3)
+	elseif configsystem.DungeonDifficult == "Hell" then
+		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",4)
+	end
 end)
 
 local function UpgStats(str,usage)
