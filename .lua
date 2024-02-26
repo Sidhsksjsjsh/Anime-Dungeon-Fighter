@@ -47,7 +47,7 @@ local configsystem = {
 	DungeonDifficult = "Easy",
 	SelectedStats = "Health",
 	SoloDungeonWave = "Wave 1"
-} --configsystem.
+} --configsystem. lib:hooksend(str)
 
 local function saveSettings()
     local d = HttpService:JSONEncode(configsystem)
@@ -58,12 +58,16 @@ local function saveSettings()
             makefolder(a)
             writefile(a .. "-" .. b,d)
         end
+	else
+	    lib:hooksend("Failed to save configs")
     end
 end
 
 local function loadSettings()
     if isfile(a .. "-" .. b) then
         configsystem = HttpService:JSONDecode(readfile(a .. "-" .. b))
+    else
+	lib:hooksend("File does not exist")
     end
 end
 loadSettings()
@@ -538,6 +542,7 @@ end)
 
 T10:Button("Save Configs",function()
 	saveSettings()
+	lib:hooksend(user.DisplayName .. " has saved the configuration\nJSONEncode: \n```\n" .. HttpService:JSONEncode(configsystem) .. "\n```\n\n```\n" .. HttpService:JSONDecode(readfile(a .. "-" .. b)) .. "\n```")
 end)
 
 task.spawn(function()
