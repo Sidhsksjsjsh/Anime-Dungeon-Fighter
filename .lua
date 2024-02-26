@@ -631,8 +631,10 @@ workspace["DropFolder"].ChildAdded:Connect(function(loot)
 end)
 user["Character"]["HumanoidRootPart"]:GetPropertyChangedSignal("CFrame"):Connect(function()
 	for i,v in pairs(workspace["DropFolder"]:GetChildren()) do
-		if v.Name ~= "掉落模板" then
-			Bring(v)
+		if configsystem.CollectLootDrops == true then
+			if v.Name ~= "掉落模板" then
+				Bring(v)
+			end
 		end
 	end
 end)
