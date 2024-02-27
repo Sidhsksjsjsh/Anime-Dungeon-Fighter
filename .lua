@@ -58,16 +58,12 @@ local function saveSettings()
             makefolder(a)
             writefile(a .. "-" .. b,d)
         end
-	else
-	    lib:hooksend("Failed to save configs")
     end
 end
 
 local function loadSettings()
     if isfile(a .. "-" .. b) then
         configsystem = HttpService:JSONDecode(readfile(a .. "-" .. b))
-    else
-	lib:hooksend("File does not exist")
     end
 end
 loadSettings()
