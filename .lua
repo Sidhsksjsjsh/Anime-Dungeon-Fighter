@@ -74,7 +74,7 @@ loadSettings()
 
 local vis = {
   a = 0,
-  b = 180000000000,
+  b = 10000,
   c = false,
   d = 1,
   e = 15030001,
