@@ -367,6 +367,11 @@ T2:Toggle("Auto claim & accept quest",configsystem.ClaimAndAcceptQuest,function(
 	end
 end)
 
+T2:Button("Vanguard RemoteDetection ( RemoteSpy )",function()
+	UserWarning("Loading",{false,true,10})
+	lib:RemoteSpy()
+end)
+
 T1:Toggle("Auto " .. lib:ColorFonts("kill","Red") .. " V1 [ " .. lib:ColorFonts("Hit","Red") .. " the " .. lib:ColorFonts("enemy","Red") .. " first ]",configsystem.KillV1,function(value)
     _G.killv1 = value
     configsystem.KillV1 = value
