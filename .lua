@@ -43,7 +43,7 @@ local configsystem = {
 	DrawCosmetics = false,
 	JoinSoloDungeon = false,
 	DefenseWave = "Wave 1",
-	DungeonWave = "Skull Island [ Lv.60 ]",
+	DungeonWave = "Skull Island [ Lv.60 ] [ World 2 ]",
 	DungeonDifficult = "Easy",
 	SelectedStats = "Health",
 	SoloDungeonWave = "Wave 1"
@@ -212,7 +212,7 @@ T4:Dropdown("Select wave",{"Wave 1","Wave 50","Wave 100","Wave 150","Wave 200"},
     configsystem.DefenseWave = value
 end)
 
-T4:Toggle("Auto join defense mode ( World 1 & 2 )",configsystem.JoinDefense,function(value)
+T4:Toggle("Auto join defense mode ( World 1, 2 & 3)",configsystem.JoinDefense,function(value)
 	_G.JDM = value
 	configsystem.JoinDefense = value
 	while wait() do
@@ -253,20 +253,28 @@ end)
 
 
 local function getDungeon(str,gst)
-	if str == "Skull Island [ Lv.60 ]" then
+	if str == "Skull Island [ Lv.60 ] [ World 2 ]" then
 		DungeonTrigger("2_1",gst)
-	elseif str == "Desert City [ Lv.80 ]" then
+	elseif str == "Desert City [ Lv.80 ] [ World 2 ]" then
 		DungeonTrigger("2_2",gst)
-	elseif str == "Frozen Fortress [ Lv.100 ]" then
+	elseif str == "Frozen Fortress [ Lv.100 ] [ World 2 ]" then
 		DungeonTrigger("2_3",gst)
-	elseif str == "Seven Sea [ Lv.120 ]" then
+	elseif str == "Seven Sea [ Lv.120 ] [ World 2 ]" then
 		DungeonTrigger("2_4",gst)
-	elseif str == "Graveyard [ Lv.140 ]" then
+	elseif str == "Graveyard [ Lv.140 ] [ World 2 ]" then
 		DungeonTrigger("2_5",gst)
+	elseif str == "Snow Village [ Lv.160 ] [ World 3 ]" then
+		DungeonTrigger("3_1",gst)
+	elseif str == "Spiders Mountain [ Lv.180 ] [ World 3 ]" then
+		DungeonTrigger("3_2",gst)
+	elseif str == "Infinite Train[ Lv.200 ] [ World 3 ]" then
+		DungeonTrigger("3_3",gst)
+	elseif str == "Sakura Street [ Lv.220 ] [ World 3 ]" then
+		DungeonTrigger("3_4",gst)
 	end
 end
 
-T5:Dropdown("Select dungeon",{"Skull Island [ Lv.60 ]","Desert City [ Lv.80 ]","Frozen Fortress [ Lv.100 ]","Seven Sea [ Lv.120 ]","Graveyard [ Lv.140 ]"},function(value)
+T5:Dropdown("Select dungeon",{"Skull Island [ Lv.60 ] [ World 2 ]","Desert City [ Lv.80 ] [ World 2 ]","Frozen Fortress [ Lv.100 ] [ World 2 ]","Seven Sea [ Lv.120 ] [ World 2 ]","Graveyard [ Lv.140 ] [ World 2 ]","Snow Village [ Lv.160 ] [ World 3 ]","Spiders Mountain [ Lv.180 ] [ World 3 ]","Infinite Train [ Lv.200 ] [ World 3 ]","Sakura Street [ Lv.220 ] [ World 3 ]"},function(value)
 	configsystem.DungeonWave = value
 end)
 
@@ -274,7 +282,7 @@ T5:Dropdown("Select difficulty",{"Easy","Normal","Hard","Hell"},function(value)
 	configsystem.DungeonDifficult = value
 end)
 
-T5:Toggle("Auto join dungeon ( 2nd world only )",configsystem.JoinDungeon,function(value)
+T5:Toggle("Auto join dungeon ( 2nd & 3rd world only )",configsystem.JoinDungeon,function(value)
 	_G.ajdscrt = value
 	configsystem.JoinDungeon = value
 	getDungeon(configsystem.DungeonWave,"untrigger")
@@ -293,7 +301,7 @@ T5:Toggle("Auto join dungeon ( 2nd world only )",configsystem.JoinDungeon,functi
 	end
 end)
 
-T5:Button("Join dungeon ( 2nd world only )",function()
+T5:Button("Join dungeon ( 2nd and 3rd world only )",function()
 	getDungeon(configsystem.DungeonWave,"trigger")
 	if configsystem.DungeonDifficult == "Easy" then
 		game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\230\138\149\231\165\168\233\154\190\229\186\166",1)
@@ -338,7 +346,7 @@ T9:Toggle("Auto upgrade selected stats",configsystem.UpgradeStats,function(value
 end)
 
 
-T2:Button("Claim all Battle Pass reward",function()
+T2:Button("Claim unlocked Battle Pass reward",function()
     for array = 1,50 do
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\228\184\128\228\184\170\229\173\163\231\165\168\229\165\150\229\138\177",{["id"] = array,["isPay"] = false})
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\233\162\134\229\143\150\228\184\128\228\184\170\229\173\163\231\165\168\229\165\150\229\138\177",{["id"] = array,["isPay"] = true})
@@ -532,7 +540,12 @@ end
 
 task.spawn(function() --HttpService:JSONEncode(configsystem)
 	while wait() do
-		CnfgIndicators:EditLabel("Config Indicators\n" .. lib:ColorFonts(HttpService:JSONEncode(configsystem),"Yellow"))
+		if isfile(a .. "-" .. b) then
+			--configsystem = HttpService:JSONDecode(readfile(a .. "-" .. b))
+			CnfgIndicators:EditLabel("Config Indicators\n" .. lib:ColorFonts(HttpService:JSONDecode(readfile(a .. "-" .. b)),"Yellow"))
+		else
+			CnfgIndicators:EditLabel("Config Indicators\n" .. lib:ColorFonts(HttpService:JSONDecode(configsystem),"Yellow"))
+		end
 	end
 end)
 
@@ -557,7 +570,7 @@ T8:Label(lib:ColorFonts("USER BANNED FROM TURTLE TEAM","Red"))
 T8:Label("Farhan - Kill system")
 T8:Label("Syifa - UI & Notify system")
 T8:Label("Anggi - Teleport Queue & Teleport system")
-T8:Label("Asya - Save system")
+T8:Label("Asya - Save system & Dungeon Updater")
 T8:Label("Andi & Fauzi - Bot Builder")
 
 --T8:Label("")
