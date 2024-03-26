@@ -431,7 +431,11 @@ T1:Toggle("Auto claim mails every 0.001",configsystem.CollectMails,function(valu
 		game:GetService("ReplicatedStorage")["Msg"]["RemoteEvent"]:FireServer("\233\162\134\229\143\150\233\130\174\228\187\182\229\165\150\229\138\177",array)
 	end
 end)
-
+--[[for i,v in pairs(Workspace["2_1"]:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+fireproximityprompt(v)
+end
+end]]
 T1:Toggle("Auto equip best equipment every 1s",configsystem.EquipBestEquipment,function(value)
     _G.ebees = value
     configsystem.EquipBestEquipment = value
@@ -440,6 +444,24 @@ T1:Toggle("Auto equip best equipment every 1s",configsystem.EquipBestEquipment,f
       game:GetService("ReplicatedStorage")["Msg"]["RemoteFunction"]:InvokeServer("\232\163\133\229\164\135\230\156\128\228\189\179\232\163\133\229\164\135")
     end
 end)
+
+if user.Name == "Rivanda_Cheater" then
+T1:Toggle("Auto claim nearest egg [ EASTER ]",configsystem.EquipBestEquipment,function(value)
+    _G.easter = value
+    while wait() do
+      if _G.easter == false then break end
+      for i,v in pairs(workspace:GetChildren()) do
+	if v.Name:sub(1,2) == "2_" or v.Name:sub(1,2) == "1_" then
+		for ind,array in pairs(v:GetDescendants()) do
+			if array:IsA("ProximityPrompt") then
+				fireproximityprompt(array)
+			end
+		end
+	end
+      end
+    end
+end)
+end
 
 if user.Name == "Rivanda_Cheater" then
 T1:Toggle("Staff test feature [1] [ Akbar ]",false,function(value)
