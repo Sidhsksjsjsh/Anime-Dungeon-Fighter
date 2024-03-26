@@ -267,7 +267,7 @@ local function getDungeon(str,gst)
 		DungeonTrigger("3_1",gst)
 	elseif str == "Spiders Mountain [ Lv.180 ] [ World 3 ]" then
 		DungeonTrigger("3_2",gst)
-	elseif str == "Infinite Train[ Lv.200 ] [ World 3 ]" then
+	elseif str == "Infinite Train [ Lv.200 ] [ World 3 ]" then
 		DungeonTrigger("3_3",gst)
 	elseif str == "Sakura Street [ Lv.220 ] [ World 3 ]" then
 		DungeonTrigger("3_4",gst)
@@ -445,7 +445,6 @@ T1:Toggle("Auto equip best equipment every 1s",configsystem.EquipBestEquipment,f
     end
 end)
 
-if user.Name == "Rivanda_Cheater" then
 T1:Toggle("Auto claim nearest egg [ EASTER ]",configsystem.EquipBestEquipment,function(value)
     _G.easter = value
     while wait() do
@@ -454,6 +453,7 @@ T1:Toggle("Auto claim nearest egg [ EASTER ]",configsystem.EquipBestEquipment,fu
 	if v.Name:sub(1,2) == "2_" or v.Name:sub(1,2) == "1_" then
 		for ind,array in pairs(v:GetDescendants()) do
 			if array:IsA("ProximityPrompt") then
+				array.MaxActivationDistance = 1230
 				fireproximityprompt(array)
 			end
 		end
@@ -461,7 +461,6 @@ T1:Toggle("Auto claim nearest egg [ EASTER ]",configsystem.EquipBestEquipment,fu
       end
     end
 end)
-end
 
 if user.Name == "Rivanda_Cheater" then
 T1:Toggle("Staff test feature [1] [ Akbar ]",false,function(value)
