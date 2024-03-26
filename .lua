@@ -91,7 +91,13 @@ local codes = {
 		"GOLDGIFT",
 		"GEMGIFT",
 		"BOOSTGIFT",
-		"DISCORD"
+		"DISCORD",
+		"NEWHERO",
+		"PVPUPDATE",
+		"ENCHANTINGUPDATE",
+		"GUILDUPDATE",
+		"NEWUPDATE",
+		"AURAUPDATE"
 	}
 }
 
